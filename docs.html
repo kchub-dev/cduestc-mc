@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="baidu-site-verification" content="codeva-CpOURKdILY" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="电子科技大学成都学院（CDUESTC）Minecraft公益服务器帮助文档，包含服务器规则、指令、玩法等详细说明" />
+  <meta name="keywords" content="cducraft,cduestc,minecraft,电子科技大学成都学院,科成,我的世界,我的世界服务器,帮助文档" />
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.1.1/css/all.min.css" />
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7.3.1/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <title>CDUCRAFT | 帮助文档</title>
+  <style>
+    :root {
+      --primary-color: #4a6bdc;
+      --secondary-color: #7e57c2;
+      --accent-color: #ffb74d;
+      --text-color: #f5f5f5;
+      --bg-dark: #1a1a2e;
+      --bg-medium: #16213e;
+      --bg-light: #0f3460;
+      --success-color: #4caf50;
+      --info-color: #2196f3;
+      --warning-color: #ff9800;
+      --danger-color: #f44336;
+    }
+    
+    .docs-section {
+      padding: 80px 0;
+      background-color: var(--bg-dark);
+      color: var(--text-color);
+    }
+    
+    .docs-content {
+      background-color: var(--bg-medium);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .docs-content h2 {
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+    
+    .docs-content h3 {
+      color: #ffb74d;
+      margin: 25px 0 15px;
+    }
+    
+    .docs-content h4 {
+      color: var(--primary-color);
+      margin: 20px 0 10px;
+    }
+    
+    .docs-content p, .docs-content li {
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    
+    .docs-content ul, .docs-content ol {
+      padding-left: 25px;
+      margin-bottom: 20px;
+    }
+    
+    .docs-content code {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: #ff7043;
+    }
+    
+    .docs-content .command {
+      background-color: var(--bg-light);
+      padding: 12px 15px;
+      border-radius: 6px;
+      border-left: 4px solid var(--primary-color);
+      margin: 15px 0;
+      font-family: monospace;
+      overflow-x: auto;
+    }
+    
+    .docs-content table {
+      width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+    }
+    
+    .docs-content table th, .docs-content table td {
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .docs-content table th {
+      background-color: var(--bg-light);
+      color: var(--accent-color);
+    }
+    
+    .docs-content table tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    .docs-content .note {
+      background-color: rgba(33, 150, 243, 0.1);
+      border-left: 4px solid var(--info-color);
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+    
+    .docs-content .warning {
+      background-color: rgba(244, 67, 54, 0.1);
+      border-left: 4px solid var(--danger-color);
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+    
+    .docs-content .tip {
+      background-color: rgba(76, 175, 80, 0.1);
+      border-left: 4px solid var(--success-color);
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+    
+    /* PC端导航栏样式优化 */
+    .docs-nav {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-color) transparent;
+    }
+    
+    .docs-nav::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    .docs-nav::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color);
+      border-radius: 5px;
+    }
+    
+    .docs-nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .docs-nav li {
+      margin-bottom: 8px;
+    }
+    
+    .docs-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      display: block;
+      padding: 8px 15px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      border-left: 2px solid transparent;
+    }
+    
+    .docs-nav a:hover, .docs-nav a.active {
+      background-color: var(--bg-light);
+      border-left: 2px solid var(--primary-color);
+      transform: translateX(3px);
+    }
+    
+    .docs-nav .nav-section {
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-top: 20px;
+      margin-bottom: 8px;
+      padding-left: 15px;
+    }
+    
+    .docs-nav .nav-subsection {
+      padding-left: 15px;
+      font-size: 0.9em;
+    }
+    
+    /* 移动端导航优化 */
+    .mobile-nav-toggle {
+      display: none;
+    }
+    
+    @media (max-width: 992px) {
+      .docs-nav {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        background-color: var(--bg-medium);
+        z-index: 1000;
+        padding: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+      }
+      
+      .docs-nav.active {
+        left: 0;
+      }
+      
+      .mobile-nav-toggle {
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        text-align: center;
+        line-height: 50px;
+        z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+      
+      .mobile-nav-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader">
+    <img src="assets/images/icon/preloader.gif" alt="preloader">
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="./assets/images/logo.png" alt="NeoWorld">
+      </a>
+      <button class="navbar-toggler" id="js-nav-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle">
+        <span></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">首页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html#servers">服务器</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html#about">关于我们</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html#faq">常见问题</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="docs.html">帮助文档</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              其他网站
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="https://skin.cduestc.fun" target="_blank">皮肤站</a></li>
+              <li><a class="dropdown-item" href="https://reg.cduestc.fun" target="_blank">注册站</a></li>
+              <li><a class="dropdown-item" href="https://status.cduestc.fun/status/cduestc" target="_blank">服务器状态监控</a></li>
+              <li><a class="dropdown-item" href="https://www.cduestc.fun" target="_blank">科成星球</a></li> 
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html#team">开发团队</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html#partners">合作伙伴</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="has-style-01" style="min-height: 40vh;">
+    <div class="header-background"></div>
+    <div class="container">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-8 col-md-6 col-12">
+          <div class="hero-content">
+            <h3 class="title-welcome">科成MC | Cducraft</h3>
+            <h1 class="one-line">
+              <span>服务器帮助文档</span>
+            </h1>
+            <h3>新手指南与进阶技巧</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="docs-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="docs-nav">
+            <button class="mobile-nav-close" aria-label="关闭导航"><i class="fas fa-times"></i></button>
+            <ul>
+              <li class="nav-section">科成MC一本通</li>
+              <li><a href="#preparation">准备工作</a></li>
+              <li><a href="#getting-started">初入游戏</a></li>
+              <li><a href="#commands">简单指令</a></li>
+              <li><a href="#advanced">进阶配置</a></li>
+              <li class="nav-section">基础指南</li>
+              <li><a href="#server-rules">服务器规则</a></li>
+              <li class="nav-section">游戏系统</li>
+              <li><a href="#economy">经济系统</a></li>
+              <li><a href="#protection">领地保护</a></li>
+              <li><a href="#crafting">锻造系统</a></li>
+              <li class="nav-section">进阶内容</li>
+              <li><a href="#plugins">插件功能</a></li>
+              <li><a href="#faq">常见问题</a></li>
+              <li><a href="#contact">联系我们</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="docs-content" id="preparation">
+            <h2>准备工作</h2>
+            <p>欢迎来到科成MC服务器！在开始游戏前，您需要完成一些准备工作。</p>
+            
+            <h3>账号准备</h3>
+            <p>科成MC服务器需要正版账号或外置登录账号：</p>
+            <ol>
+              <li>如果您有Minecraft正版账号，可以直接使用</li>
+              <li>如果没有正版账号，您需要注册我们的外置登录账号：
+                <ul>
+                  <li>访问<a href="https://skin.cduestc.fun" target="_blank">皮肤站</a>注册账号</li>
+                  <li>或访问<a href="https://reg.cduestc.fun" target="_blank">注册站</a>注册账号</li>
+                </ul>
+              </li>
+              <li>注册完成后，请妥善保管您的账号信息</li>
+            </ol>
+            
+            <h3>启动器准备</h3>
+            <p>您需要使用支持外置登录的启动器：</p>
+            <ul>
+              <li><strong>PCL2启动器</strong>：
+                <ol>
+                  <li>下载并安装<a href="https://afdian.com/a/LTCat?tab=feed" target="_blank">PCL2启动器</a></li>
+                  <li>在设置中找到「验证服务器」选项</li>
+                  <li>选择「第三方登录（authlib-injector）」</li>
+                  <li>填写认证服务器：<code>https://skin.cduestc.fun/api/yggdrasil</code></li>
+                  <li>点击「保存」</li>
+                </ol>
+              </li>
+              <li><strong>HMCL启动器</strong>：
+                <ol>
+                  <li>下载并安装<a href="https://hmcl.huangyuhui.net/download/" target="_blank">HMCL启动器</a></li>
+                  <li>点击「账户」-「添加账户」</li>
+                  <li>选择「外置登录（authlib-injector）」</li>
+                  <li>填写认证服务器：<code>https://skin.cduestc.fun/api/yggdrasil</code></li>
+                  <li>输入您在皮肤站注册的用户名和密码</li>
+                </ol>
+              </li>
+            </ul>
+            
+            <div class="note">
+              <p><strong>注意：</strong>请确保您的Minecraft版本兼容服务器（支持1.8-1.21版本）。推荐使用1.21版本获得最佳体验。</p>
+            </div>
+          </div>
+          
+          <div class="docs-content" id="getting-started">
+            <h2>初入游戏</h2>
+            <p>完成账号和启动器设置后，您可以开始进入服务器并进行简单配置。</p>
+            
+            <h3>服务器简介</h3>
+            <p>科成MC是电子科技大学成都学院（CDUESTC）的Minecraft公益服务器，由科成MC同好会成员联合创办。我们提供多种类型的服务器，包括原版生存、整合包等，满足不同玩家的需求。</p>
+            
+            <h3>如何加入服务器</h3>
+            <ol>
+              <li>加入QQ群：957464722</li>
+              <li>在群公告中获取服务器地址和相关信息</li>
+              <li>启动游戏，选择对应版本（推荐1.21）</li>
+              <li>点击「多人游戏」-「添加服务器」</li>
+              <li>输入服务器地址并保存</li>
+              <li>选择服务器并点击「加入服务器」</li>
+            </ol>
+            
+            <h3>初次登录设置</h3>
+            <p>首次进入服务器时，您需要完成以下设置：</p>
+            <ol>
+              <li>按照服务器提示设置密码（如果使用外置登录则无需此步骤）</li>
+              <li>阅读服务器规则并同意</li>
+              <li>使用<code>/register &lt;密码&gt; &lt;确认密码&gt;</code>注册（如需要）</li>
+              <li>使用<code>/login &lt;密码&gt;</code>登录（如需要）</li>
+            </ol>
+            
+            <h3>基本设置</h3>
+            <p>进入服务器后，建议进行以下基本设置：</p>
+            <ul>
+              <li>使用<code>/sethome</code>设置您的家，方便日后传送</li>
+              <li>使用<code>/nick</code>设置您的昵称（如果服务器支持）</li>
+              <li>使用<code>/tps</code>查看服务器性能状态</li>
+              <li>使用<code>/bal</code>或<code>/money</code>查看您的余额</li>
+            </ul>
+            
+            <div class="note">
+              <p><strong>注意：</strong>首次进入服务器建议先熟悉周围环境，阅读服务器公告，了解基本规则和指令。</p>
+            </div>
+          </div>
+          
+          <div class="docs-content" id="server-rules">
+            <h2>服务器规则</h2>
+            <p>为了维护良好的游戏环境，请所有玩家遵守以下规则：</p>
+            
+            <h3>基本规则</h3>
+            <ul>
+              <li>尊重其他玩家，禁止辱骂、歧视等不文明行为</li>
+              <li>禁止使用任何作弊客户端、模组或外挂</li>
+              <li>禁止恶意破坏其他玩家的建筑和财产</li>
+              <li>禁止利用游戏漏洞或服务器漏洞获取不正当利益</li>
+              <li>禁止发布违反法律法规的内容</li>
+            </ul>
+            
+            <h3>建筑规则</h3>
+            <ul>
+              <li>请在合适的地点建造，不要过于靠近其他玩家</li>
+              <li>禁止建造过于巨大的红石机器导致服务器卡顿</li>
+              <li>禁止建造不良内容的建筑</li>
+            </ul>
+            
+            <div class="warning">
+              <p><strong>警告：</strong>违反服务器规则可能会导致临时或永久封禁。</p>
+            </div>
+          </div>
+          
+          <div class="docs-content" id="commands">
+            <h2>简单指令</h2>
+            <p>以下是服务器中常用的指令，帮助您更好地游玩：</p>
+            
+            <h3>基础指令</h3>
+            <div class="command">/help - 查看帮助信息</div>
+            <div class="command">/spawn - 返回出生点</div>
+            <div class="command">/tpa &lt;玩家名&gt; - 请求传送到指定玩家身边</div>
+            <div class="command">/tpaccept - 接受传送请求</div>
+            <div class="command">/tpdeny - 拒绝传送请求</div>
+            <div class="command">/sethome - 设置家</div>
+            <div class="command">/home - 传送回家</div>
+            <div class="command">/back - 返回上一个位置（如死亡地点）</div>
+            <div class="command">/msg &lt;玩家名&gt; &lt;消息&gt; - 私聊玩家</div>
+            <div class="command">/r &lt;消息&gt; - 回复最后私聊你的玩家</div>
+            
+            <h3>经济指令</h3>
+            <div class="command">/balance 或 /bal - 查看余额</div>
+            <div class="command">/pay &lt;玩家名&gt; &lt;金额&gt; - 向指定玩家转账</div>
+            <div class="command">/baltop - 查看服务器财富排行榜</div>
+            
+            <h3>领地指令</h3>
+            <div class="command">/res create &lt;领地名&gt; - 创建领地</div>
+            <div class="command">/res info - 查看当前所在领地信息</div>
+            <div class="command">/res set &lt;权限&gt; &lt;true/false&gt; - 设置领地权限</div>
+            <div class="command">/res tp &lt;领地名&gt; - 传送到指定领地</div>
+            <div class="command">/res list - 查看自己的领地列表</div>
+            <div class="command">/res padd &lt;领地名&gt; &lt;玩家名&gt; - 添加玩家到领地</div>
+            
+            <h3>特色指令</h3>
+            <div class="command">/tps - 查看服务器性能</div>
+            <div class="command">/hat - 将手中物品戴在头上</div>
+            <div class="command">/afk - 标记自己为暂时离开</div>
+            <div class="command">/mail read - 阅读邮件</div>
+            <div class="command">/mail send &lt;玩家名&gt; &lt;内容&gt; - 发送邮件</div>
+            <div class="command">/nick &lt;昵称&gt; - 设置昵称（如支持）</div>
+            
+            <div class="tip">
+              <p><strong>提示：</strong>使用 <code>/help &lt;插件名&gt;</code> 可以查看特定插件的帮助信息。服务器会不定期更新指令，请关注服务器公告。</p>
+            </div>
+          </div>
+          
+          <div class="docs-content" id="advanced">
+            <h2>进阶配置</h2>
+            <p>熟悉基本操作后，您可以进行一些进阶配置，提升游戏体验。</p>
+            
+            <h3>玩家选项配置</h3>
+            <p>服务器提供了丰富的玩家自定义选项，您可以根据自己的喜好进行设置：</p>
+            <ul>
+              <li><strong>聊天格式</strong>：可以自定义聊天消息的显示格式</li>
+              <li><strong>物品显示</strong>：可以调整物品信息的显示方式</li>
+              <li><strong>游戏提示</strong>：可以开启或关闭各类游戏提示</li>
+              <li><strong>界面设置</strong>：可以自定义界面元素的显示</li>
+            </ul>
+            
+            <h3>锻造系统进阶</h3>
+            <p>服务器的锻造系统非常丰富，进阶使用方法：</p>
+            <ol>
+              <li>收集稀有材料，用于高级装备的锻造</li>
+              <li>了解不同附魔的特性和适用场景</li>
+              <li>合理搭配装备属性，提升整体战斗力</li>
+              <li>使用特殊锻造台，制作专属装备</li>
+            </ol>
+            
+            <h3>红石与自动化</h3>
+            <p>服务器支持大部分红石功能，您可以建造自动化设施：</p>
+            <ul>
+              <li>自动农场：提高资源收集效率</li>
+              <li>自动分类系统：管理物品存储</li>
+              <li>自动交易系统：便捷的物品交换</li>
+              <li>注意：请合理控制红石设备规模，避免造成服务器卡顿</li>
+            </ul>
+            
+            <h3>社区参与</h3>
+            <p>深度参与服务器社区活动，获得更好的游戏体验：</p>
+            <ul>
+              <li>参与服务器举办的各类活动和比赛</li>
+              <li>加入玩家组建的城镇或公会</li>
+              <li>在社区论坛或QQ群中分享游戏心得</li>
+              <li>为服务器发展提供建议和反馈</li>
+            </ul>
+            
+            <h3>插件进阶使用</h3>
+            <p>熟练使用服务器的特色插件功能：</p>
+            <ul>
+              <li>使用经济插件建立自己的商店</li>
+              <li>利用领地插件创建复杂的权限系统</li>
+              <li>探索任务插件提供的高级任务链</li>
+              <li>使用投票奖励插件获取额外福利</li>
+            </ul>
+            
+            <div class="warning">
+              <p><strong>注意：</strong>进行高级操作时，请确保了解相关规则，避免因误操作导致损失或违规。如有疑问，请随时咨询管理员。</p>
+            </div>
+          </div>
+          
+          <div class="docs-content" id="economy">
+            <h2>经济系统</h2>
+            <p>服务器采用虚拟货币系统，您可以通过多种方式获取和使用货币。</p>
+            
+            <h3>获取货币</h3>
+            <ul>
+              <li>完成任务和成就</li>
+              <li>在商店出售物品</li>
+              <li>参与服务器活动</li>
+              <li>与其他玩家交易</li>
+            </ul>
+            
+            <h3>使用货币</h3>
+            <ul>
+              <li>购买物品和服务</li>
+              <li>创建和扩展领地</li>
+              <li>参与拍卖</li>
+              <li>支付传送费用</li>
+            </ul>
+            
+            <h3>商店系统</h3>
+            <p>服务器提供多种商店，您可以在这些商店中购买或出售物品：</p>
+            <ul>
+              <li>系统商店：提供基础物品的买卖</li>
+              <li>玩家商店：由其他玩家创建的商店</li>
+              <li>特殊商店：提供稀有物品和特殊服务</li>
+            </ul>
+          </div>
+          
+          <div class="docs-content" id="protection">
+            <h2>领地保护</h2>
+            <p>服务器使用领地插件保护您的建筑和财产不被破坏。</p>
+            
+            <h3>创建领地</h3>
+            <ol>
+              <li>使用木锄选择领地的两个对角点（左键选择第一个点，右键选择第二个点）</li>
+              <li>输入 <code>/res create &lt;领地名&gt;</code> 创建领地</li>
+              <li>创建领地需要支付费用，费用与领地大小成正比</li>
+            </ol>
+            
+            <h3>领地权限</h3>
+            <p>您可以为领地设置各种权限，控制其他玩家在您领地内的行为：</p>
+            <ul>
+              <li>build - 建造权限</li>
+              <li>destroy - 破坏权限</li>
+              <li>use - 使用物品权限</li>
+              <li>container - 使用容器权限</li>
+              <li>pvp - PVP权限</li>
+            </ul>
+            
+            <h3>添加信任</h3>
+            <p>您可以将其他玩家添加为领地的信任成员，允许他们在您的领地内进行特定操作：</p>
+            <div class="command">/res padd &lt;领地名&gt; &lt;玩家名&gt; - 添加玩家到领地</div>
+            <div class="command">/res pdel &lt;领地名&gt; &lt;玩家名&gt; - 从领地移除玩家</div>
+          </div>
+          
+          <div class="docs-content" id="crafting">
+            <h2>锻造系统</h2>
+            <p>服务器拥有特色的锻造系统，允许玩家制作和升级特殊装备。</p>
+            
+            <h3>基础锻造</h3>
+            <p>在主城的铁匠铺可以进行基础锻造，制作特殊装备：</p>
+            <ol>
+              <li>收集所需材料</li>
+              <li>与铁匠NPC对话</li>
+              <li>选择要锻造的装备类型</li>
+              <li>支付相应的费用</li>
+            </ol>
+            
+            <h3>装备升级</h3>
+            <p>已有的装备可以通过升级系统提升属性：</p>
+            <ul>
+              <li>使用特殊材料和货币升级装备</li>
+              <li>升级有一定的成功率，失败可能导致装备降级或破损</li>
+              <li>高级装备需要特殊的升级材料</li>
+            </ul>
+            
+            <h3>附魔系统</h3>
+            <p>服务器拥有扩展的附魔系统，提供更多的附魔选项：</p>
+            <ul>
+              <li>自定义附魔可以提供特殊效果</li>
+              <li>某些附魔需要特殊的附魔书</li>
+              <li>附魔等级可以超过原版限制</li>
+            </ul>
+          </div>
+          
+          <div class="docs-content" id="plugins">
+            <h2>插件功能</h2>
+            <p>服务器使用多种插件增强游戏体验，以下是一些主要插件的功能介绍：</p>
+            
+            <h3>经济插件</h3>
+            <p>提供完整的经济系统，包括货币、商店、拍卖等功能。</p>
+            
+            <h3>领地插件</h3>
+            <p>允许玩家创建和管理自己的领地，保护建筑和财产。</p>
+            
+            <h3>传送插件</h3>
+            <p>提供各种传送功能，包括传送到玩家、设置家等。</p>
+            
+            <h3>任务插件</h3>
+            <p>提供各种任务和成就，完成后可获得奖励。</p>
+            
+            <h3>聊天插件</h3>
+            <p>增强聊天功能，支持私聊、频道、彩色文字等。</p>
+          </div>
+          
+          <div class="docs-content" id="faq">
+            <h2>常见问题</h2>
+            
+            <h3>如何注册账号？</h3>
+            <p>首次进入服务器时，系统会提示您注册。按照提示输入密码即可完成注册。</p>
+            
+            <h3>忘记密码怎么办？</h3>
+            <p>请联系服务器管理员重置密码。</p>
+            
+            <h3>服务器支持哪些版本？</h3>
+            <p>服务器支持Java版1.8-1.21的客户端进入。</p>
+            
+            <h3>如何赚取游戏币？</h3>
+            <p>可以通过完成任务、出售物品、参与活动等方式赚取游戏币。</p>
+            
+            <h3>遇到恶意玩家怎么办？</h3>
+            <p>请使用 <code>/report &lt;玩家名&gt; &lt;原因&gt;</code> 举报恶意玩家，管理员会尽快处理。</p>
+          </div>
+          
+          <div class="docs-content" id="contact">
+            <h2>联系我们</h2>
+            <p>如果您有任何问题、建议或反馈，可以通过以下方式联系我们：</p>
+            
+            <h3>QQ群</h3>
+            <p>加入我们的QQ群：957464722</p>
+            
+            <h3>服务器内联系</h3>
+            <p>在游戏内可以使用 <code>/mail send &lt;管理员名&gt; &lt;内容&gt;</code> 向管理员发送邮件。</p>
+            
+            <h3>反馈建议</h3>
+            <p>我们欢迎所有玩家提出建设性的意见和建议，帮助我们改进服务器。</p>
+            
+            <div class="note">
+              <p><strong>注意：</strong>管理员不会要求您提供账号密码，请注意账号安全。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <button class="mobile-nav-toggle" aria-label="打开导航"><i class="fas fa-bars"></i></button>
+
+  <footer class="has-style-01">
+    <div class="shape">
+      <img class="shape-03" src="assets/images/shape/shape-03.png" alt="shape">
+    </div>
+    <div class="container">
+      <p class="text-center">
+        <br/>
+        <a href="https://mclists.cn/server/8117.html" target="_blank"><img src="https://tietu.mclists.cn/banner/purple/8117/1.jpg" height="50" alt="mclists"/></a>
+        <br/>
+        <br/>&copy; 2024 电子科技大学成都学院Minecraft服务器 - 保留所有权利
+        <br/>友情链接：<a href="https://www.cduestc.cn/" target="_blank">电子科技大学成都学院</a> | <a href="https://docs.mualliance.cn/" target="_blank">MUA高校联盟</a>
+        <br/>
+        <br/>
+        <b><a href="https://beian.miit.gov.cn/">蜀ICP备2025122461号</a></b>
+    </div>
+  </footer>
+  <div class="scroll-up">
+    <i class="fi fi-rr-arrow-up"></i>
+  </div>
+
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/swiper@7.3.1/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // 移动端导航菜单功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const mobileNavClose = document.querySelector('.mobile-nav-close');
+      const docsNav = document.querySelector('.docs-nav');
+      
+      if (mobileNavToggle && mobileNavClose && docsNav) {
+        mobileNavToggle.addEventListener('click', function() {
+          docsNav.classList.add('active');
+        });
+        
+        mobileNavClose.addEventListener('click', function() {
+          docsNav.classList.remove('active');
+        });
+        
+        // 点击导航链接后自动关闭导航菜单
+        const navLinks = docsNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            if (window.innerWidth <= 992) {
+              docsNav.classList.remove('active');
+            }
+          });
+        });
+        
+        // 添加当前活动链接高亮
+        const currentHash = window.location.hash;
+        if (currentHash) {
+          const activeLink = docsNav.querySelector(`a[href="${currentHash}"]`);
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        }
+        
+        // 监听滚动，高亮当前部分
+        window.addEventListener('scroll', function() {
+          const sections = document.querySelectorAll('.docs-content');
+          let currentSection = '';
+          
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.pageYOffset >= (sectionTop - 200)) {
+              currentSection = '#' + section.getAttribute('id');
+            }
+          });
+          
+          if (currentSection) {
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === currentSection) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

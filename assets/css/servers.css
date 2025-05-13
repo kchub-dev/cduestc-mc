@@ -1,0 +1,136 @@
+.servers-section {
+  position: relative;
+  padding: 3rem 0;
+  background-color: var(--primary);
+}
+
+.servers-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.server-card {
+  background: var(--tertiary);
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(163, 153, 250, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.server-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-color: var(--secondary);
+}
+
+.server-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--secondary) 0%, #6a5acd 100%);
+}
+
+.server-card h4 {
+  color: var(--white);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.server-card h4::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--secondary);
+}
+
+.server-info {
+  margin-top: 1rem;
+}
+
+.server-info p {
+  margin-bottom: 0.5rem;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+}
+
+.server-info p i {
+  color: var(--secondary);
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.server-info .address {
+  background: rgba(163, 153, 250, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+  font-family: monospace;
+  color: var(--white);
+  border-left: 3px solid var(--secondary);
+}
+
+.server-card .btn-connect {
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.server-card .btn-connect:hover {
+  background: #8a7ef8;
+  transform: translateY(-2px);
+}
+
+.server-type {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.server-type.vanilla {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.server-type.modpack {
+  background: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
+}
+
+@media (max-width: 767.98px) {
+  .servers-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .server-card {
+    max-width: 100%;
+  }
+}
