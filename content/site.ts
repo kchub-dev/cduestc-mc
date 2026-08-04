@@ -19,6 +19,8 @@ export const siteConfig = {
   statusPageUrl: "https://status.cduestc.fun/status/cduestc",
   statusApiBase: "https://status.cduestc.fun",
   statusSlug: "cduestc",
+  /** Client poll interval. Align with Uptime Kuma check (~60s). */
+  statusPollIntervalMs: 60_000,
   beian: "蜀ICP备2025122461号",
   beianUrl: "https://beian.miit.gov.cn/",
   mclistsBanner: "https://tietu.mclists.cn/banner/purple/8117/1.jpg",
@@ -36,6 +38,7 @@ export const siteConfig = {
 
 export const navItems = [
   { label: "首页", href: "/" },
+  { label: "监控", href: "/#status" },
   { label: "服务器", href: "/#servers" },
   { label: "关于我们", href: "/#about" },
   { label: "常见问题", href: "/#faq" },

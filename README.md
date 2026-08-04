@@ -32,9 +32,9 @@ npm run dev
 - `https://status.cduestc.fun/api/status-page/cduestc`
 - `https://status.cduestc.fun/api/status-page/heartbeat/cduestc`
 
-站点内代理：`GET /api/status`（约 60s 缓存）。
+站点内代理：`GET /api/status`（实时、无缓存）。
 
-文案与监控映射见 `content/servers.ts`、`content/site.ts`。
+浏览器每 60 秒轮询刷新（与 Uptime Kuma 探测周期一致）；文案与监控映射见 `content/servers.ts`、`content/site.ts`。
 
 ## 目录说明
 

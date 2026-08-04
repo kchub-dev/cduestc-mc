@@ -43,8 +43,8 @@
 | Section | 目的 |
 |---------|------|
 | Hero | 品牌与入群 |
-| StatusStrip | Web 服务健康一览 |
-| Servers | 游玩入口 + 实时状态 |
+| StatusStrip（`#status`） | 游戏服 + Web 实时健康一览 |
+| Servers | 游玩入口 + 实时状态 + 公告摘要/Modal |
 | Features | 特色能力 |
 | About | 社团 / 服务器定位 |
 | FAQ | 常见问题 |
@@ -153,6 +153,13 @@ box-shadow:
 
 在暗色 token 下使用；新增组件后检查暗色对比度（文字 / 边框 / focus ring）。
 
+### 6.6 监控与公告 Modal
+
+- 监控条：按 Kuma 分组（Mod / Game / Web）列出状态点 + 可用性 + 延迟；显示「实时同步 · 60s」与更新时间
+- 服务器公告：列表仅摘要（约 120 字）+「查看全文」；点击打开 Dialog
+- Modal：标题 = incident.title；正文可滚动；支持加粗与链接；页脚主操作「关闭」（草绿）、次操作「打开监控页」
+- 遮罩：半透明黑 + 轻 blur，内容区使用 `.pixel-border` 与卡片面色
+
 ---
 
 ## 7. 图像与装饰
@@ -216,7 +223,12 @@ box-shadow:
 | 色板与工具类 | `app/globals.css` |
 | 字体加载 | `app/layout.tsx` |
 | Hero | `components/sections/hero.tsx` |
-| 服务器 / 状态视觉 | `components/sections/servers.tsx`、`status-strip.tsx`、`status/status-badge.tsx` |
+| 实时监控挂载 | `components/sections/live-status-block.tsx` |
+| 监控条 | `components/sections/status-strip.tsx` |
+| 服务器卡片 | `components/sections/servers.tsx` |
+| 状态徽章 | `components/status/status-badge.tsx` |
+| 公告 Modal | `components/status/incident-announcement.tsx` |
+| Dialog | `components/ui/dialog.tsx` |
 | 滚动入场 | `components/motion/reveal.tsx` |
 | 文档页版式 | `app/docs/page.tsx` |
 
@@ -229,3 +241,4 @@ box-shadow:
 | 日期 | 说明 |
 |------|------|
 | 2026-08-04 | 初版：由静态 HTML 深色站重构为 Next.js 设计系统，确立草绿主色与像素边语言 |
+| 2026-08-04 | 监控条扩展为游戏服+Web；公告改为摘要 + Modal 全文 |

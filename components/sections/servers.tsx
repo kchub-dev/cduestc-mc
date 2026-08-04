@@ -4,7 +4,7 @@ import {
   formatUptime,
   StatusBadge,
 } from "@/components/status/status-badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { IncidentAnnouncement } from "@/components/status/incident-announcement";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,18 +23,16 @@ import {
 import { ExternalLink, Globe, Puzzle, Server } from "lucide-react";
 import Link from "next/link";
 
-function stripMarkdownLite(md: string): string {
-  return md
-    .replace(/\*\*(.*?)\*\*/g, "$1")
-    .replace(/\[(.*?)\]\((.*?)\)/g, "$1")
-    .replace(/\n+/g, " ")
-    .trim();
-}
-
 export function ServersSection({
   status,
+  isLive = false,
+  isRefreshing = false,
+  updatedAt,
 }: {
   status: MergedStatusPayload | null;
+  isLive?: boolean;
+  isRefreshing?: boolean;
+  updatedAt?: string;
 }) {
   const incident = status?.incident;
 
@@ -47,18 +45,28 @@ export function ServersSection({
             多样化的游戏体验
           </h2>
           <p className="mt-3 text-muted-foreground">
-            运行状态来自 Uptime Kuma 实时监控；地址请加群后在公告获取。
+            {isLive
+              ? "游戏服状态与上方监控同源，实时同步 Uptime Kuma；地址请加群后在公告获取。"
+              : "运行状态来自 Uptime Kuma 监控；地址请加群后在公告获取。"}
           </p>
+          {isLive ? (
+            <p className="mt-2 text-xs text-muted-foreground">
+              {isRefreshing ? "正在同步…" : "已同步"}
+              {updatedAt
+                ? ` · ${new Intl.DateTimeFormat("zh-CN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false,
+                  }).format(new Date(updatedAt))}`
+                : null}
+            </p>
+          ) : null}
         </Reveal>
 
         {incident ? (
           <Reveal className="mb-8">
-            <Alert className="border-secondary/30 bg-card pixel-border">
-              <AlertTitle>{incident.title || "赛季公告"}</AlertTitle>
-              <AlertDescription className="line-clamp-3 text-muted-foreground">
-                {stripMarkdownLite(incident.content)}
-              </AlertDescription>
-            </Alert>
+            <IncidentAnnouncement incident={incident} />
           </Reveal>
         ) : null}
 

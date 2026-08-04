@@ -84,9 +84,16 @@ export function statusLabel(code: MonitorStatusCode): string {
   return STATUS_LABELS[Number(code)] ?? "未知";
 }
 
-async function fetchJson<T>(path: string): Promise<T> {
+type FetchMode = "cached" | "fresh";
+
+async function fetchJson<T>(
+  path: string,
+  mode: FetchMode = "cached",
+): Promise<T> {
   const res = await fetch(`${siteConfig.statusApiBase}${path}`, {
-    next: { revalidate: 60, tags: ["uptime-kuma"] },
+    ...(mode === "fresh"
+      ? { cache: "no-store" as const }
+      : { next: { revalidate: 60, tags: ["uptime-kuma"] } }),
   });
   if (!res.ok) {
     throw new Error(`Uptime Kuma request failed: ${res.status} ${path}`);
@@ -94,18 +101,24 @@ async function fetchJson<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-export async function fetchStatusPage(): Promise<StatusPageResponse> {
-  return fetchJson(`/api/status-page/${siteConfig.statusSlug}`);
+export async function fetchStatusPage(
+  mode: FetchMode = "cached",
+): Promise<StatusPageResponse> {
+  return fetchJson(`/api/status-page/${siteConfig.statusSlug}`, mode);
 }
 
-export async function fetchHeartbeat(): Promise<HeartbeatResponse> {
-  return fetchJson(`/api/status-page/heartbeat/${siteConfig.statusSlug}`);
+export async function fetchHeartbeat(
+  mode: FetchMode = "cached",
+): Promise<HeartbeatResponse> {
+  return fetchJson(`/api/status-page/heartbeat/${siteConfig.statusSlug}`, mode);
 }
 
-export async function getMergedStatus(): Promise<MergedStatusPayload> {
+export async function getMergedStatus(
+  mode: FetchMode = "cached",
+): Promise<MergedStatusPayload> {
   const [page, heartbeat] = await Promise.all([
-    fetchStatusPage(),
-    fetchHeartbeat(),
+    fetchStatusPage(mode),
+    fetchHeartbeat(mode),
   ]);
 
   const monitors: MonitorLiveStatus[] = [];

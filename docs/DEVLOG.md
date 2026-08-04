@@ -4,6 +4,38 @@
 
 ---
 
+## 2026-08-04 — 实时监控 + 公告 Modal（0.1.1）
+
+### 背景
+
+Uptime Kuma 探测周期约 1 分钟；此前首页状态偏静态/短缓存，游戏服与 Web 需同源实时刷新。赛季公告（pin incident）全文过长，不适合直接铺在列表区。
+
+### 改动
+
+- 客户端轮询：`useLiveStatus` → `/api/status`（60s，页签隐藏暂停，回前台立即刷新）
+- 监控条覆盖 Mod / Game / Web；服务器卡片共用 live state
+- 公告摘要可点击，Dialog 展示 Markdown 风格全文
+- 修复 Button `render` 为链接时的 `nativeButton` 警告
+
+### 决策 / 原因
+
+- 轮询对齐 60s，避免无意义的过密请求（上游本身约 1 分钟才变）
+- 公告用 Modal：列表保持干净，详情可滚动、可外链监控页
+- Chrome DevTools 做了首页 Hero / 监控 / 服务器 / Modal 视觉核对
+
+### 验证
+
+- `npm run lint` / `npm run build` 通过
+- 控制台无 Base UI button 警告
+- 点击公告可打开 Dialog，内容含加粗与链接
+
+### 后续
+
+- 监控 ID / 赛季文案变更时同步改 `content/servers.ts` 并记日志
+- 可考虑把「退休服」链接做成独立入口
+
+---
+
 ## 2026-08-04 — Next.js 重构上线（0.1.0）
 
 ### 背景
@@ -18,7 +50,7 @@
    - `GET /api/status-page/cduestc` → 分组、监控元数据、incident
    - `GET /api/status-page/heartbeat/cduestc` → 心跳与 24h uptime
 2. 旧 HTML 服务器列表（化龙 / 宁然一隅）与监控页（香草纪元2 / 单程票）已漂移 → **运行态以 Kuma 为准，文案本地配置补全**。
-3. 旧站 `.htaccess` 暗示曾用 Apache 静态托管；因需要服务端拉取与缓存，新站采用 **Node 部署**，不做 `output: 'export'`。
+3. 旧站 `.htaccess` 暗示曾用 Apache 静态托管；因需要服务端拉取与动态 API，新站采用 **Node 部署**，不做 `output: 'export'`。
 
 ### 实施过程摘要
 
@@ -44,7 +76,8 @@
 1. **create-next-app 无法在非空目录直接初始化** → 使用临时 `web-tmp` 再合并到根目录。
 2. **shadcn CLI v4**：`-b neutral` 无效，需 `-b radix` / `-d` 默认预设；组件基于 Base UI，`render` 多态与旧文档略有差异。
 3. **ESLint 扫到 legacy / 临时目录** → `eslint.config.mjs` 忽略 `legacy/**`，并删除临时脚手架残留。
-4. **首页构建期依赖外网 API**：失败时 catch 降级，避免整站构建挂死；正常情况 ISR 60s 刷新。
+4. **首页依赖外网 API**：失败时 catch 降级，避免整站挂死。
+5. **Base UI Button**：`render={<Link/>}` 须 `nativeButton={false}`（已在 `button.tsx` 自动处理）。
 
 ### 后续可跟进
 

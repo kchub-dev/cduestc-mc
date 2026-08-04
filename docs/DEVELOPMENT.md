@@ -62,18 +62,21 @@ docs/                     # 本开发文档
 ## 4. 架构与数据流
 
 ```
-┌─────────────┐     fetch (revalidate 60s)     ┌──────────────────────────┐
-│  page.tsx   │ ─────────────────────────────► │ status.cduestc.fun        │
-│  (RSC)      │                                │ /api/status-page/...      │
-└──────┬──────┘                                │ /api/status-page/heartbeat│
-       │ getMergedStatus()                     └──────────────────────────┘
-       ▼
-┌─────────────┐
-│ Servers /   │  content/servers.ts 提供文案 + monitorId
-│ StatusStrip │  Uptime Kuma 提供 up/down、ping、24h uptime
-└─────────────┘
-
-浏览器 ──GET /api/status──► Route Handler ──► 同上合并 DTO（可选客户端刷新）
+┌─────────────┐   getMergedStatus("fresh")   ┌──────────────────────────┐
+│  page.tsx   │ ───────────────────────────► │ status.cduestc.fun        │
+│  (RSC SSR)  │                              │ /api/status-page/...      │
+└──────┬──────┘                              │ /api/status-page/heartbeat│
+       │ initialStatus                       └────────────▲─────────────┘
+       ▼                                                  │
+┌──────────────────┐     GET /api/status (no-store)       │
+│ LiveStatusBlock  │ ─────────────────────────────────────┘
+│ useLiveStatus    │     每 60s / 回前台 / 手动刷新
+└────────┬─────────┘
+         │
+   ┌─────┴──────┐
+   ▼            ▼
+StatusStrip   ServersSection
+(全部分组)     (卡片 + 公告 Modal)
 ```
 
 ### 职责划分
@@ -96,18 +99,32 @@ docs/                     # 本开发文档
 
 ## 5. 代码技术点
 
-### 5.1 服务端数据与缓存
+### 5.1 服务端数据与实时刷新
 
-- `lib/uptime-kuma.ts` 使用 `fetch(..., { next: { revalidate: 60, tags: ['uptime-kuma'] } })`
-- 首页与 `/api/status` 均 `export const revalidate = 60`，构建后约每分钟后台再验证
-- 首页对 API 失败做 try/catch，降级为「状态未知」，页面仍可渲染
+- 首屏 SSR：`getMergedStatus("fresh")` 直连 Uptime Kuma（`cache: "no-store"`）
+- 浏览器：`hooks/use-live-status.ts` 每 `siteConfig.statusPollIntervalMs`（默认 **60s**，对齐 Uptime Kuma 探测）请求 `GET /api/status`
+- 监控条同时展示 **Mod Server / Game Server / Web** 全部分组；服务器卡片与监控条共用同一份 live state（`LiveStatusBlock`）
+- `/api/status` 为 `force-dynamic`，上游始终 `fresh`，响应 `Cache-Control: no-store`
+- 页签隐藏时暂停轮询；切回前台立即刷新；可手动点「刷新」
+- 失败时保留上一份状态，并在监控条显示错误提示
 
-### 5.2 shadcn / Base UI 用法注意
+官网轮询周期与 Kuma 探测同级（约 1 分钟）；状态变化最多延迟约一轮探测 + 一轮轮询。
+
+### 5.2 公告 Modal（Uptime Kuma incident）
+
+- 组件：`components/status/incident-announcement.tsx`
+- 数据：`status.incident`（优先 pin + active）
+- 交互：列表显示约 120 字摘要 → 点击打开 Dialog 全文
+- 渲染：支持 `**加粗**`、`[文字](url)`、裸 `http(s)://` 自动成链
+- UI：`components/ui/dialog.tsx`（Base UI Dialog）；页脚「打开监控页」「关闭」
+
+### 5.3 shadcn / Base UI 用法注意
 
 本仓库 shadcn 为 **base-nova** 预设，底层是 `@base-ui/react`，部分 API 与旧 Radix 写法不同：
 
-- `Button` / `SheetTrigger` 等支持 `render={<Link href="..." />}` 做多态
-- `DropdownMenuTrigger` 可直接当按钮用（带 className）
+- `Button` / `SheetTrigger` / `DialogClose` 等支持 `render={<Link href="..." />}` 做多态
+- **`Button` 已内置**：存在 `render` 时默认 `nativeButton={false}`，避免控制台无障碍警告
+- `DropdownMenuTrigger` / `DialogTrigger` 可直接当按钮用（带 className）
 - `Accordion` 来自 Base UI Accordion，Item 使用 `value`
 
 新增组件：
@@ -116,21 +133,21 @@ docs/                     # 本开发文档
 npx shadcn@latest add <component>
 ```
 
-### 5.3 主题与视觉
+### 5.4 主题与视觉
 
 - 强制暗色品牌站：`html` 带 `dark` class
 - 设计 token 在 `app/globals.css`（背景 `#0e1630`、草绿 `#5d9c3f`、淡紫 `#a399fa`）
 - 字体：Outfit（正文）+ Press Start 2P（小标签）+ Geist Mono
 - 工具类：`.pixel-border`、`.heading-eyebrow`、`.status-dot-*`、`.container-site`
 
-### 5.4 Motion
+### 5.5 Motion
 
 - Hero：`motion` 入场
 - 区块：`components/motion/reveal.tsx`（`whileInView`）
 - 状态点：在线时轻微呼吸动画
 - 一律通过 `useReducedMotion()` 降级为无动画
 
-### 5.5 图片
+### 5.6 图片
 
 `next.config.ts` 允许远程图：
 
@@ -139,7 +156,7 @@ npx shadcn@latest add <component>
 
 本地资源放 `public/images/`。
 
-### 5.6 SEO 与合规
+### 5.7 SEO 与合规
 
 - `app/layout.tsx` 的 `metadata`（title / description / keywords / Open Graph）
 - 百度验证：`verification.other['baidu-site-verification']` + `public/baidu_verify_*.html`
@@ -153,7 +170,11 @@ npx shadcn@latest add <component>
 
 1. 编辑 `content/servers.ts`
 2. 确认 Uptime Kuma 上对应 monitor 的 **id** 是否变化，更新 `monitorId`
-3. 本地 `npm run dev` 看服务器卡片状态是否正确
+3. 本地 `npm run dev` 看服务器卡片与监控条状态是否正确
+
+### 改轮询间隔
+
+编辑 `content/site.ts` 的 `statusPollIntervalMs`（毫秒）。建议不低于 Uptime Kuma 探测间隔。
 
 ### 改站点外链 / QQ 群
 
@@ -184,9 +205,26 @@ npx shadcn@latest add <component>
 
 ---
 
-## 8. 相关链接
+## 8. 关键文件速查
+
+| 能力 | 路径 |
+|------|------|
+| 状态合并 / 类型 | `lib/uptime-kuma.ts` |
+| 状态 API | `app/api/status/route.ts` |
+| 客户端轮询 | `hooks/use-live-status.ts` |
+| 监控 + 服务器挂载 | `components/sections/live-status-block.tsx` |
+| 监控条 UI | `components/sections/status-strip.tsx` |
+| 服务器卡片 | `components/sections/servers.tsx` |
+| 公告 Modal | `components/status/incident-announcement.tsx` |
+| Dialog 原语 | `components/ui/dialog.tsx` |
+
+---
+
+## 9. 相关链接
 
 - 监控页：https://status.cduestc.fun/status/cduestc
 - Uptime Kuma Internal API 说明：https://github.com/louislam/uptime-kuma/wiki/Internal-API
 - shadcn/ui：https://ui.shadcn.com
 - Motion：https://motion.dev
+- 设计规范：[DESIGN.md](./DESIGN.md)
+- 变更历史：[CHANGELOG.md](./CHANGELOG.md)
