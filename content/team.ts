@@ -3,7 +3,7 @@ export const teamMembers = [
     name: "Skilly",
     role: "服主 / 管理",
     bio: "负责服务器的整体管理和维护",
-    avatar: "https://q1.qlogo.cn/g?b=qq&nk=3267690242&s=640",
+    avatar: "/images/team/skilly.png",
     tags: ["服务器运维", "账号运营", "社区管理"],
     link: null as string | null,
   },
@@ -14,6 +14,22 @@ export const teamMembers = [
     avatar: "https://q1.qlogo.cn/g?b=qq&nk=2315823357&s=640",
     tags: ["技术支持", "Web开发", "设计/策划"],
     link: "https://qxml.ltd",
+  },
+  {
+    name: "mutant",
+    role: "技术",
+    bio: "负责服务器插件的开发",
+    avatar: "/images/team/mutant.jpg",
+    tags: ["插件开发"],
+    link: null as string | null,
+  },
+  {
+    name: "TENFEN",
+    role: "美术",
+    bio: "负责服务器的美术资源",
+    avatar: "/images/team/tenfen.jpg",
+    tags: ["美术设计"],
+    link: null as string | null,
   },
 ] as const;
 

@@ -52,6 +52,7 @@ components/
 content/                  # 纯数据/文案，尽量不碰组件改字
   site.ts / servers.ts / faq.ts / team.ts / docs.ts
   section-progress.ts     # 首页章节侧栏 id / 文案
+  promo/                  # 长文宣传底稿（卡片摘要仍写在 servers.ts）
 lib/
   uptime-kuma.ts          # 监控类型、拉取、合并 DTO
   utils.ts                # cn()
@@ -184,8 +185,16 @@ npx shadcn@latest add <component>
 ### 改服务器文案或换整合包
 
 1. 编辑 `content/servers.ts`
-2. 确认 Uptime Kuma 上对应 monitor 的 **id** 是否变化，更新 `monitorId`
-3. 本地 `npm run dev` 看服务器卡片与监控条状态是否正确
+2. 较长宣传底稿可放 `content/promo/`（如 `owt.md`），卡片只保留摘要
+3. 确认 Uptime Kuma 上对应 monitor 的 **id** 是否变化，更新 `monitorId`
+4. 本地 `npm run dev` 看服务器卡片与监控条状态是否正确
+
+### 改团队成员
+
+1. 编辑 `content/team.ts`
+2. 本地头像放入 `public/images/team/`，路径形如 `/images/team/<name>.jpg`
+3. QQ 头像可用 `q1.qlogo.cn` 链接（`Image` 对 `http` 源会 `unoptimized`）
+4. UI 为 `components/sections/team.tsx` 的 shadcn Card **2×2 横版网格**（全员同屏，无轮播）；手机为紧凑横排，勿改回全宽竖排大图
 
 ### 改轮询间隔
 

@@ -29,18 +29,20 @@ export function HeroSection() {
           initial={reduce ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-2xl"
+          className="max-w-3xl"
         >
           <p className="mb-4 font-[family-name:var(--font-pixel)] text-[10px] leading-relaxed tracking-widest text-mc-grass uppercase sm:text-xs">
-            {siteConfig.brand} · {siteConfig.name}
+            {siteConfig.hero.eyebrow}
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            在奇妙的世界
-            <br />
-            展开冒险
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+            {siteConfig.hero.titleLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-            生存 · 建筑 · 养老 · 校园服务器
+          <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+            {siteConfig.hero.subtitle}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button

@@ -18,12 +18,21 @@
 - `SectionProgress`：滚动 spy、点击 `scrollIntoView`、Motion 右侧入场、`labelsOnHover`
 - `content/section-progress.ts` 章节表；首页挂载；`home-section-progress` 隐藏原生滚动条
 - 曾误接 `HomeScrollSnap`，按需求整段撤回
+- 单程票卡片改用 `content/promo/owt.md` 摘要；类型改为「射击副本」
+- 团队新增 mutant / TENFEN，头像迁入 `public/images/team/{mutant,tenfen}.jpg`
+- 团队区：改回 Swiper（legacy `teamSwiper`：fade / autoplay 3s / scrollbar / 箭头），恢复左右「成员 + 职责」布局；卡片统一高度与排版节奏
+- Hero / About / Features：对齐金苹果社团定位与《单程票》宣传（`服务器宣传介绍.md` / `content/promo/owt.md`）
+- 团队区取消「职责」右栏，介绍合并为一块；成员展示改为 shadcn Card **2×2 横版网格**（弃用单卡 Swiper）
+- 团队 / 伙伴移动端响应式：手机紧凑横排（小头像），避免全宽大图；伙伴手机横排列表、`sm` 起三列
+- Skilly 头像换为本地 `skilly.png`
 
 ### 决策 / 原因
 
 - 进度高亮靠 `--effect` rAF，不另造一套选中 CSS；配色走 `--link` 等 token 对齐参考站用法
 - 刻度默认收起，悬停展开标签，避免常驻挡内容
 - 明确排除 snap：用户只要侧栏进度，滚动保持原生连续行为
+- 团队区：4 人不宜单卡轮播或 4 列窄卡（中间空、两侧空）；对齐常见 marketing team 模式——全员同屏 + 横版媒体卡填满 `container-site`
+- 移动端不用竖排大图：一屏只能看一人、滚动过长；改固定头像宽横排以提升信息密度
 
 ### 验证
 
@@ -36,6 +45,7 @@
 
 - 增删首页章节时同步改 `content/section-progress.ts` 与对应 `id`
 - 若以后要整页翻页，再单独评估，勿与侧栏进度绑死
+- 待补：整合包轮换、生电服宣传文案写入 `content/servers.ts`（底稿可放 `content/promo/`）
 
 ---
 

@@ -36,78 +36,86 @@ export const servers: ServerContent[] = [
   {
     id: "owt",
     name: "单程票（OWT）",
-    type: "vanilla",
-    typeLabel: "原版生存",
+    type: "modpack",
+    typeLabel: "射击副本",
     description:
-      "正式服生存体验。基于原版，高于原版——适合建筑、养老与校园联机。",
-    version: "Java Edition · 正式服",
+      "原创硬核丧尸射击副本：现代化枪械、生还者波次与肉鸽双模式，支持 4 人小队救援开黑。请使用官方整合包进入。",
+    version: "1.21.1 · Paper + Fabric",
     addressHint: "加群后公告获取",
-    extra: "基于原版，高于原版",
+    extra: "科成MC公益服官方整合包 v1.0 · 自研插件与客户端模组",
     monitorId: 105,
   },
 ];
 
 export const features = [
   {
-    title: "玩家选项可配置",
-    description: "服务器提供丰富的可配置项，按需定制个人体验。",
-    icon: "settings",
+    title: "现代化枪械系统",
+    description:
+      "射击、换弹、爆头、后坐力与弹道拖尾齐全，抛弃冷兵器，沉浸式 FPS 手感。",
+    icon: "crosshair",
   },
   {
-    title: "便民群机器人",
-    description: "QQ 群机器人辅助查询与社区服务。",
-    icon: "bot",
+    title: "生还者 · 波次防守",
+    description:
+      "30 回合波次生存，简单/普通/困难可选，精英与 BOSS 阶段逐步加压。",
+    icon: "shield",
   },
   {
-    title: "多版本支持登录",
-    description: "支持 1.8–1.21 Java 版客户端进入服务器。",
-    icon: "monitor",
+    title: "肉鸽节点挑战",
+    description:
+      "随机节点地图树：突袭与坚守交错，增益与诅咒并存，构筑你的流派。",
+    icon: "map",
   },
   {
-    title: "でんでん 锻造系统",
-    description: "特色锻造玩法，打造属于你的装备。",
-    icon: "hammer",
+    title: "四人小队救援",
+    description:
+      "创建/加入队伍开黑，倒地可被拉起；安全屋团队机器可补给与急救。",
+    icon: "users",
   },
   {
-    title: "神器更改 · 彩色名",
-    description: "个性展示与神器自定义。",
+    title: "自研客户端模组",
+    description:
+      "官方整合包内置 OneWayTicket Mod：FPS HUD、3D 枪模、动态光与专属动画。",
+    icon: "puzzle",
+  },
+  {
+    title: "军械重构与藏品",
+    description:
+      "金色重构枪械与十余种藏品，配合 COIN 经济与生涯榜单、成就系统。",
     icon: "sparkles",
-  },
-  {
-    title: "剧情与邮件系统",
-    description: "特色剧情推进与站内邮件沟通。",
-    icon: "mail",
-  },
-  {
-    title: "武器绑定系统",
-    description: "可召回、可查看持有者的装备绑定。",
-    icon: "link",
   },
 ] as const;
 
+export const aboutCopy = {
+  eyebrow: "关于我们",
+  titleLines: ["电子科技大学成都学院", "金苹果社团"] as const,
+  description:
+    "科成 MC（CDUCRAFT）由电子科技大学成都学院金苹果社团成员运营，面向同学提供免费公益联机。当前以原创射击副本《单程票》为核心玩法，并持续轮换整合包等体验。",
+} as const;
+
 export const aboutFeatures = [
   {
-    title: "原版生存",
+    title: "原创《单程票》",
     description:
-      "纯净的原版生存玩法，保留最原汁原味的 MC 体验。在这里建造家园，与同学们一起探索世界。",
-    icon: "book",
+      "插件 + 客户端模组全自研的硬核丧尸射击副本：生还者波次与肉鸽双模式，别处玩不到。",
+    icon: "crosshair",
   },
   {
-    title: "基础插件",
+    title: "校园公益运营",
     description:
-      "仅添加基础实用插件，包括领地、传送等，兼顾原版乐趣与财产安全。",
-    icon: "plug",
+      "金苹果社团组织维护，无需付费；加群获取整合包与服务器地址，同学一起开黑。",
+    icon: "heart",
   },
   {
-    title: "网络环境",
+    title: "官方整合包",
     description:
-      "德阳与成都双节点部署，保证两个校区同学都能获得良好体验。",
-    icon: "network",
+      "「科成MC公益服官方整合包」对齐服务端版本，自带专属模组，减少配置踩坑。",
+    icon: "package",
   },
   {
     title: "安全保障",
     description:
-      "已开启正版验证与 MUA 验证，确保游戏环境安全公平。",
+      "已开启正版验证与 MUA 验证，配合监控与运维，尽量保证公平、稳定的游玩环境。",
     icon: "shield",
   },
 ] as const;

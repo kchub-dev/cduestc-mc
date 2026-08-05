@@ -3,25 +3,25 @@ import { Button } from "@/components/ui/button";
 import { features } from "@/content/servers";
 import { siteConfig } from "@/content/site";
 import {
-  Bot,
-  Hammer,
-  Link2,
-  Mail,
-  Monitor,
-  Settings,
+  Crosshair,
+  Map,
+  Package,
+  Puzzle,
+  Shield,
   Sparkles,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 
 const iconMap: Record<string, LucideIcon> = {
-  settings: Settings,
-  bot: Bot,
-  monitor: Monitor,
-  hammer: Hammer,
+  crosshair: Crosshair,
+  shield: Shield,
+  map: Map,
+  users: Users,
+  puzzle: Puzzle,
   sparkles: Sparkles,
-  mail: Mail,
-  link: Link2,
+  package: Package,
 };
 
 export function FeaturesSection() {
@@ -31,13 +31,13 @@ export function FeaturesSection() {
         <Reveal>
           <p className="heading-eyebrow">我们有什么特色</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-            更自由的选项，
+            原创《单程票》
             <br />
-            更好的体验
+            硬核射击副本
           </h2>
           <p className="mt-4 text-muted-foreground">
-            服务器允许 1.8–1.21 的 Java 版客户端进入，且在服务器中有众多可配置项。
-            更多选项将在未来添加，也欢迎提交建议。
+            将 Minecraft 与 FPS
+            深度结合：现代化枪械、生还者波次与肉鸽双模式、四人小队救援，配套全自研客户端模组。请使用官方整合包进入。
           </p>
           <Button className="mt-6" render={<Link href="/docs" />}>
             帮助文档
@@ -57,18 +57,18 @@ export function FeaturesSection() {
 
         <div className="grid gap-3 sm:grid-cols-2">
           {features.map((feature, i) => {
-            const Icon = iconMap[feature.icon] ?? Settings;
+            const Icon = iconMap[feature.icon] ?? Sparkles;
             return (
               <Reveal key={feature.title} delay={i * 0.05}>
-                <div className="pixel-border flex gap-3 rounded-md border border-border bg-card p-4 transition hover:border-secondary/40">
+                <div className="pixel-border flex h-full gap-3 rounded-md border border-border bg-card p-4 transition hover:border-secondary/40">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-secondary/15 text-secondary">
                     <Icon className="size-5" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="font-semibold text-foreground">
                       {feature.title}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       {feature.description}
                     </p>
                   </div>

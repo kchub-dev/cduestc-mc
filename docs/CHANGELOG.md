@@ -10,6 +10,8 @@
 - 章节数据：`content/section-progress.ts`（hero / status / servers / services / about / faq / team / partners）
 - 滚动高亮当前章节；点击平滑跳转；悬停近距变色 / 刻度伸缩；侧栏从右侧入场
 - 首页隐藏原生滚动条（`html.home-section-progress`），由侧栏进度代替视觉进度感
+- 团队成员：**mutant**（技术 / 插件开发）、**TENFEN**（美术 / 美术设计）；头像 `public/images/team/`
+- 单程票宣传底稿：`content/promo/owt.md`
 
 ### Changed
 
@@ -17,6 +19,11 @@
 - 顶栏 Logo 改用立方体标 `/logo.png`（`48×48`），避免横版字标被压成小方块
 - Favicon：以立方体标覆盖 `app/favicon.ico`，并增加 `app/icon.png`
 - 主题补充侧栏 token：`--link` / `--foreground-faint` / `--border-strong`
+- **单程票（OWT）**卡片文案改为射击副本定位（枪械 / 生还者+肉鸽 / 官方整合包），类型标签「射击副本」
+- `.gitignore` 忽略根目录 `debug.log`
+- 开发团队：弃用单卡 Swiper；改为 shadcn `Card` 2×2 横版成员网格（头像左 / 文案右），铺满内容区
+- 团队 / 伙伴移动端：紧凑横排卡（固定头像宽、收紧字号与内边距）；伙伴手机单列横排，`sm+` 三列竖卡
+- Skilly 头像改为本地 `public/images/team/skilly.png`
 
 ### Fixed
 
@@ -26,6 +33,7 @@
 
 - **未**接入桌面整页翻页（`HomeScrollSnap`）；滚动仍为普通连续滚动
 - 侧栏实现参考 open-platform-landing 的 `LineSidebar` + `SectionProgress`，仅取进度轨，不含 snap
+- 整合包轮换、生电服宣传文案待后续补充
 
 ---
 

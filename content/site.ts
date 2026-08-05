@@ -1,14 +1,21 @@
 export const siteConfig = {
   name: "CDUCRAFT",
   brand: "科成MC",
+  club: "电子科技大学成都学院金苹果社团",
   title: "CDUCRAFT | 官网",
   description:
-    "电子科技大学成都学院（CDUESTC）Minecraft公益服务器是由科成MC同好会成员联合创办的公益服务器，旨在打造一个简单稳定的多人联机平台。",
+    "电子科技大学成都学院金苹果社团（科成MC / CDUCRAFT）运营的校园 Minecraft 公益服务器，提供原创射击副本《单程票》、赛季整合包等联机体验。",
+  hero: {
+    eyebrow: "CDUCRAFT",
+    titleLines: ["电子科技大学成都学院", "金苹果社团"] as const,
+    subtitle: "校园 Minecraft 公益服 · 原创玩法与同好联机",
+  },
   keywords: [
     "cducraft",
     "cduestc",
     "minecraft",
     "电子科技大学成都学院",
+    "金苹果社团",
     "科成",
     "我的世界",
     "我的世界服务器",
