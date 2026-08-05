@@ -42,16 +42,16 @@ export function SiteHeader() {
       )}
     >
       <div className="container-site flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
           <Image
-            src="/images/logo.png"
+            src="/logo.png"
             alt={siteConfig.name}
-            width={40}
-            height={40}
-            className="size-10"
+            width={48}
+            height={48}
+            className="size-12 shrink-0 object-contain"
             priority
           />
-          <span className="font-semibold tracking-wide text-foreground">
+          <span className="truncate text-base font-semibold tracking-wide text-foreground sm:text-lg">
             {siteConfig.brand}
             <span className="ml-2 hidden text-muted-foreground sm:inline">
               | {siteConfig.name}

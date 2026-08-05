@@ -31,8 +31,12 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logo.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
   },
   verification: {
     other: {

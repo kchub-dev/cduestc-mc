@@ -42,14 +42,15 @@
 
 | Section | 目的 |
 |---------|------|
-| Hero | 品牌与入群 |
+| Hero（`#hero`） | 品牌与入群；首屏占满一屏 `h-dvh` |
 | StatusStrip（`#status`） | 游戏服 + Web 实时健康一览 |
-| Servers | 游玩入口 + 实时状态 + 公告摘要/Modal |
-| Features | 特色能力 |
-| About | 社团 / 服务器定位 |
-| FAQ | 常见问题 |
+| Servers（`#servers`） | 游玩入口 + 实时状态 + 公告摘要/Modal |
+| Features（`#services`） | 特色能力 |
+| About（`#about`） | 社团 / 服务器定位 |
+| FAQ（`#faq`） | 常见问题 |
 | Team / Partners | 人与合作 |
 | Footer | 备案与友情链接 |
+| SectionProgress（侧栏） | 桌面章节进度 / 锚点跳转（非整页翻页） |
 
 ---
 
@@ -69,6 +70,9 @@
 | `--mc-dirt` | `#8b6b4a` | 泥土褐（备用边框 / 质感） |
 | `--destructive` | `#eb4a4a` | 离线、错误、危险提示 |
 | `--border` | `rgba(163, 153, 250, 0.22)` | 细边 |
+| `--link` | `#7ec85a` | 章节侧栏强调（近距 / 选中） |
+| `--foreground-faint` | `#808dad` | 侧栏静息文字 |
+| `--border-strong` | `#5a6a8a` | 侧栏刻度静息色 |
 
 ### 3.2 语义色（状态）
 
@@ -160,6 +164,14 @@ box-shadow:
 - Modal：标题 = incident.title；正文可滚动；支持加粗与链接；页脚主操作「关闭」（草绿）、次操作「打开监控页」
 - 遮罩：半透明黑 + 轻 blur，内容区使用 `.pixel-border` 与卡片面色
 
+### 6.7 章节侧栏进度
+
+- 位置：桌面 `lg+` 固定于视口右侧垂直居中；小屏隐藏
+- 默认：仅显示刻度线；悬停侧栏时展开章节文案（`labelsOnHover`）
+- 选中 / 近距：草绿强调色（`--link`），刻度 `scaleX` 随 `--effect` 变化
+- 入场：自右侧淡入滑入（Motion）；尊重 `prefers-reduced-motion`
+- 首页隐藏原生滚动条，进度感由侧栏承担；**不做**整页滚轮翻页
+
 ---
 
 ## 7. 图像与装饰
@@ -167,7 +179,8 @@ box-shadow:
 | 资源 | 用途 |
 |------|------|
 | `/images/bc.png` | Hero 全宽氛围底（加左右/上下暗色渐变保证可读） |
-| `/images/logo.png` | 导航品牌标 |
+| `/logo.png` | 导航立方体标 + favicon / apple icon |
+| `/images/logo.png` | CDUCRAFT 横版字标（备用，勿再压成方块导航标） |
 | `/images/partners/*` | 合作伙伴 Logo |
 | QQ / mclists 远程图 | 头像与列表站 banner（`next.config` 白名单） |
 
@@ -181,11 +194,12 @@ box-shadow:
 
 ## 8. 动效（Motion）
 
-意图克制，默认 **2–3 类主动画**：
+意图克制，默认 **2–3 类主动画**（另加章节侧栏一类）：
 
 1. **Hero 入场**：opacity + 轻位移
 2. **区块 Reveal**：`whileInView` 渐入（`components/motion/reveal.tsx`）
 3. **状态点呼吸**：仅在线态轻微 opacity 脉冲
+4. **章节侧栏**：入场滑入 + 近距 `--effect`（指针靠近时刻度/文字渐变）
 
 约束：
 
@@ -199,10 +213,12 @@ box-shadow:
 
 | 断点思路 | 行为 |
 |----------|------|
-| `< lg` | 顶栏收为 Sheet 菜单 |
+| `< lg` | 顶栏收为 Sheet 菜单；章节侧栏隐藏 |
+| `lg+` | 显示右侧章节进度轨 |
 | 服务器 / 特色 / 关于 | 单列 → 双列网格 |
 | 文档 | 侧栏在桌面 sticky；小屏改为上方导航块 |
 | Hero 标题 | `text-4xl` → `sm:text-5xl` → `md:text-6xl` |
+| Hero 高度 | `h-dvh` 占满首屏 |
 
 触摸目标：按钮与导航链接保持可点区域，避免过密。
 
@@ -230,6 +246,8 @@ box-shadow:
 | 公告 Modal | `components/status/incident-announcement.tsx` |
 | Dialog | `components/ui/dialog.tsx` |
 | 滚动入场 | `components/motion/reveal.tsx` |
+| 章节侧栏 | `components/layout/section-progress.tsx` |
+| LineSidebar | `components/bits/LineSidebar.tsx` |
 | 文档页版式 | `app/docs/page.tsx` |
 
 改色优先改 CSS 变量，避免在组件里散落硬编码色值（Hero 遮罩渐变可保留与 `--background` 同色的局部值）。
@@ -242,3 +260,4 @@ box-shadow:
 |------|------|
 | 2026-08-04 | 初版：由静态 HTML 深色站重构为 Next.js 设计系统，确立草绿主色与像素边语言 |
 | 2026-08-04 | 监控条扩展为游戏服+Web；公告改为摘要 + Modal 全文 |
+| 2026-08-05 | Hero 满屏；立方体 Logo/favicon；右侧章节 LineSidebar 进度（无整页翻页） |

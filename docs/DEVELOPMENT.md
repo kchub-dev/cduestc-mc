@@ -35,20 +35,23 @@ npm run lint
 
 ```
 app/
-  layout.tsx              # 字体、SEO、Header/Footer 壳
-  page.tsx                # 首页（服务端拉状态）
+  layout.tsx              # 字体、SEO、Header/Footer 壳、favicon metadata
+  page.tsx                # 首页（服务端拉状态 + SectionProgress）
+  icon.png / favicon.ico  # App Router 站点图标（立方体标）
   docs/page.tsx           # 帮助文档
   api/status/route.ts     # 状态 BFF 代理
-  globals.css             # 主题 token + MC 风格工具类
+  globals.css             # 主题 token + MC 风格工具类 + 首页藏滚动条
   not-found.tsx           # 404
 components/
-  layout/                 # SiteHeader / SiteFooter
+  bits/                   # 第三方/开源 UI 位（LineSidebar 等）
+  layout/                 # SiteHeader / SiteFooter / SectionProgress
   sections/               # 首页各区块
   status/                 # 状态徽章与格式化
   motion/reveal.tsx       # 滚动入场（尊重 reduced-motion）
   ui/                     # shadcn 组件
 content/                  # 纯数据/文案，尽量不碰组件改字
   site.ts / servers.ts / faq.ts / team.ts / docs.ts
+  section-progress.ts     # 首页章节侧栏 id / 文案
 lib/
   uptime-kuma.ts          # 监控类型、拉取、合并 DTO
   utils.ts                # cn()
@@ -145,20 +148,32 @@ npx shadcn@latest add <component>
 - Hero：`motion` 入场
 - 区块：`components/motion/reveal.tsx`（`whileInView`）
 - 状态点：在线时轻微呼吸动画
+- 章节侧栏：右侧入场（opacity + `x`）；条目近距用 rAF `--effect`，非 CSS transition 堆叠
 - 一律通过 `useReducedMotion()` 降级为无动画
 
-### 5.6 图片
+### 5.6 章节侧栏进度（LineSidebar）
+
+- UI：`components/bits/LineSidebar.tsx` + `LineSidebar.css`（参考 open-platform-landing；**不含**整页 snap）
+- 挂载：`components/layout/section-progress.tsx`（仅首页 `app/page.tsx`）
+- 数据：`content/section-progress.ts` 的 `{ id, href, label }[]`，DOM 上各 Section 须有对应 `id`
+- 行为：滚动 spy 更新 `activeIndex`；点击 `scrollIntoView` / 回顶；`labelsOnHover` 悬停才展开文案
+- 样式 token：`--link`、`--foreground-faint`、`--border-strong`（见 `globals.css`）
+- 首页 `html.home-section-progress` 隐藏原生滚动条；`< lg` 不显示侧栏
+- **不要**再引入 `HomeScrollSnap` 一类桌面翻页，除非产品明确要求
+
+### 5.7 图片
 
 `next.config.ts` 允许远程图：
 
 - `q1.qlogo.cn`（QQ 头像）
 - `tietu.mclists.cn`（列表站 banner）
 
-本地资源放 `public/images/`。
+本地资源放 `public/images/`。导航图标用 `public/logo.png`（立方体）；横版字标仍在 `public/images/logo.png`。
 
-### 5.7 SEO 与合规
+### 5.8 SEO 与合规
 
-- `app/layout.tsx` 的 `metadata`（title / description / keywords / Open Graph）
+- `app/layout.tsx` 的 `metadata`（title / description / keywords / Open Graph / icons）
+- App Router 图标：`app/favicon.ico`、`app/icon.png`
 - 百度验证：`verification.other['baidu-site-verification']` + `public/baidu_verify_*.html`
 - Footer 保留 ICP：蜀ICP备2025122461号
 
@@ -192,6 +207,12 @@ npx shadcn@latest add <component>
 
 改 `content/site.ts` 中 `statusApiBase`、`statusSlug`。
 
+### 改首页章节侧栏
+
+1. 编辑 `content/section-progress.ts`（顺序即侧栏顺序）
+2. 对应 Section 根节点设置相同 `id`（Hero 为 `hero`）
+3. 桌面 `lg+` 预览近距悬停与滚动高亮；小屏侧栏隐藏属预期
+
 ---
 
 ## 7. ESLint 范围
@@ -217,6 +238,9 @@ npx shadcn@latest add <component>
 | 服务器卡片 | `components/sections/servers.tsx` |
 | 公告 Modal | `components/status/incident-announcement.tsx` |
 | Dialog 原语 | `components/ui/dialog.tsx` |
+| 章节侧栏 | `components/layout/section-progress.tsx` |
+| LineSidebar | `components/bits/LineSidebar.tsx` |
+| 章节数据 | `content/section-progress.ts` |
 
 ---
 

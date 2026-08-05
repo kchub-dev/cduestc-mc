@@ -1,3 +1,4 @@
+import { SectionProgress } from "@/components/layout/section-progress";
 import { AboutSection } from "@/components/sections/about";
 import { FaqSection } from "@/components/sections/faq";
 import { FeaturesSection } from "@/components/sections/features";
@@ -19,6 +20,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <SectionProgress />
       <HeroSection />
       <LiveStatusBlock initialStatus={status} />
       <FeaturesSection />

@@ -2,6 +2,33 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循语义化思路（当前为预发布 `0.x`）。
 
+## [0.1.2] — 2026-08-05
+
+### Added
+
+- **章节侧栏进度**：`LineSidebar`（`components/bits/`）+ `SectionProgress`，右侧固定章节轨（`lg+`）
+- 章节数据：`content/section-progress.ts`（hero / status / servers / services / about / faq / team / partners）
+- 滚动高亮当前章节；点击平滑跳转；悬停近距变色 / 刻度伸缩；侧栏从右侧入场
+- 首页隐藏原生滚动条（`html.home-section-progress`），由侧栏进度代替视觉进度感
+
+### Changed
+
+- Hero 改为 `h-dvh`，首屏仅 Hero，下方监控不再露头
+- 顶栏 Logo 改用立方体标 `/logo.png`（`48×48`），避免横版字标被压成小方块
+- Favicon：以立方体标覆盖 `app/favicon.ico`，并增加 `app/icon.png`
+- 主题补充侧栏 token：`--link` / `--foreground-faint` / `--border-strong`
+
+### Fixed
+
+- `LineSidebar` 动画循环：`startLoop` 改为可重启，cleanup 清空 `raf`，确保 `--effect` 驱动近距 / 选中态
+
+### Notes
+
+- **未**接入桌面整页翻页（`HomeScrollSnap`）；滚动仍为普通连续滚动
+- 侧栏实现参考 open-platform-landing 的 `LineSidebar` + `SectionProgress`，仅取进度轨，不含 snap
+
+---
+
 ## [0.1.1] — 2026-08-04
 
 ### Added

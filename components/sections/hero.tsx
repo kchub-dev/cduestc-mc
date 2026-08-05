@@ -10,7 +10,7 @@ export function HeroSection() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative min-h-[92vh] overflow-hidden pt-16">
+    <section id="hero" className="relative h-dvh min-h-dvh overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src="/images/bc.png"
@@ -24,7 +24,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e1630] via-transparent to-[#0e1630]/50" />
       </div>
 
-      <div className="container-site relative z-10 flex min-h-[calc(92vh-4rem)] flex-col justify-center py-20">
+      <div className="container-site relative z-10 flex h-full flex-col justify-center pt-16 pb-10">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}

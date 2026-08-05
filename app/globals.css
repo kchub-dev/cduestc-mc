@@ -89,6 +89,10 @@
   --mc-grass: #5d9c3f;
   --mc-dirt: #8b6b4a;
   --mc-lavender: #a399fa;
+  /* Section progress / LineSidebar (aligned with open-platform tokens) */
+  --link: #7ec85a;
+  --foreground-faint: #808dad;
+  --border-strong: #5a6a8a;
 }
 
 .dark {
@@ -196,6 +200,29 @@
     background: #f0c040;
     box-shadow: 0 0 0 3px color-mix(in oklab, #f0c040 25%, transparent);
   }
+}
+
+/* Homepage: hide native scrollbar; LineSidebar is the section progress */
+html.home-section-progress {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html.home-section-progress::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+html.home-section-progress body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html.home-section-progress body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

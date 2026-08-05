@@ -4,6 +4,41 @@
 
 ---
 
+## 2026-08-05 — 章节侧栏进度 + 首屏 / 品牌标（0.1.2）
+
+### 背景
+
+首屏 Hero 高度不足会露出下方监控；顶栏横版字标被压成方块过小；浏览器标签仍可能落到 Next 默认 favicon。需要首页章节进度轨（参考 open-platform-landing 的 LineSidebar），**只要侧栏进度，不要桌面整页翻页**。
+
+### 改动
+
+- Hero：`h-dvh` + `id="hero"`
+- 顶栏：`/logo.png` 立方体 `size-12`；`app/favicon.ico` / `app/icon.png` 同步立方体标
+- `components/bits/LineSidebar` + CSS（自 open-platform 拷贝并修好 rAF）
+- `SectionProgress`：滚动 spy、点击 `scrollIntoView`、Motion 右侧入场、`labelsOnHover`
+- `content/section-progress.ts` 章节表；首页挂载；`home-section-progress` 隐藏原生滚动条
+- 曾误接 `HomeScrollSnap`，按需求整段撤回
+
+### 决策 / 原因
+
+- 进度高亮靠 `--effect` rAF，不另造一套选中 CSS；配色走 `--link` 等 token 对齐参考站用法
+- 刻度默认收起，悬停展开标签，避免常驻挡内容
+- 明确排除 snap：用户只要侧栏进度，滚动保持原生连续行为
+
+### 验证
+
+- 选中章节 `--effect ≈ 1`，刻度变长变绿
+- 悬停近距：相邻项 effect 呈梯度；标签在悬停侧栏时可见
+- 入场：侧栏自右淡入滑入
+- 无 `home-scroll-snap` 引用；控制台无相关 module-not-found
+
+### 后续
+
+- 增删首页章节时同步改 `content/section-progress.ts` 与对应 `id`
+- 若以后要整页翻页，再单独评估，勿与侧栏进度绑死
+
+---
+
 ## 2026-08-04 — 实时监控 + 公告 Modal（0.1.1）
 
 ### 背景
