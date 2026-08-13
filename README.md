@@ -16,7 +16,9 @@ npm install
 npm run dev
 ```
 
-访问 [http://localhost:3000](http://localhost:3000)。
+访问 [http://localhost:3083](http://localhost:3083)。
+
+正式站点地址只来自环境变量 `NEXT_PUBLIC_SITE_URL`（模板见 [`.env.example`](./.env.example)），源码不写死域名。本地 `next dev` 不必配置；`next build` 必须在构建环境注入公网 origin。
 
 ## 脚本
 

@@ -45,7 +45,7 @@ export function SiteHeader() {
         <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
           <Image
             src="/logo.png"
-            alt={siteConfig.name}
+            alt={`${siteConfig.brand} ${siteConfig.name}`}
             width={48}
             height={48}
             className="size-12 shrink-0 object-contain"
@@ -59,7 +59,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="主导航">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -119,7 +119,7 @@ export function SiteHeader() {
                     key={site.href}
                     href={site.href}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="rounded-md px-3 py-2.5 text-sm text-foreground hover:bg-accent"
                   >
                     {site.label}

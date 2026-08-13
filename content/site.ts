@@ -2,9 +2,10 @@ export const siteConfig = {
   name: "CDUCRAFT",
   brand: "科成MC",
   club: "电子科技大学成都学院金苹果社团",
-  title: "CDUCRAFT | 官网",
+  title: "科成MC | 电子科技大学成都学院 Minecraft 公益服",
   description:
-    "电子科技大学成都学院金苹果社团（科成MC / CDUCRAFT）运营的校园 Minecraft 公益服务器，提供原创射击副本《单程票》、赛季整合包等联机体验。",
+    "电子科技大学成都学院金苹果社团（科成MC / CDUCRAFT）校园 Minecraft 公益服官网。原创射击副本《单程票》、香草纪元等整合包联机，以及规则、指令与帮助文档。",
+  ogImage: "/images/bc.png",
   hero: {
     eyebrow: "CDUCRAFT",
     titleLines: ["电子科技大学成都学院", "金苹果社团"] as const,
@@ -17,8 +18,12 @@ export const siteConfig = {
     "电子科技大学成都学院",
     "金苹果社团",
     "科成",
+    "科成MC",
     "我的世界",
     "我的世界服务器",
+    "公益服",
+    "单程票",
+    "香草纪元",
   ],
   qqGroup: "957464722",
   qqGroupUrl:

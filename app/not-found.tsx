@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "页面不存在",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

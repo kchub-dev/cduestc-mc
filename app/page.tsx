@@ -1,5 +1,6 @@
 import { getMergedStatus } from "@/lib/uptime-kuma";
 import { SectionProgress } from "@/components/layout/section-progress";
+import { JsonLd } from "@/components/seo/json-ld";
 import { AboutSection } from "@/components/sections/about";
 import { FaqSection } from "@/components/sections/faq";
 import { FeaturesSection } from "@/components/sections/features";
@@ -9,8 +10,14 @@ import {
   PartnersSection,
   TeamSection,
 } from "@/components/sections/team";
+import { getHomeJsonLd } from "@/lib/seo";
+import type { Metadata } from "next";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function HomePage() {
   let status = null;
@@ -22,6 +29,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={getHomeJsonLd()} />
       <SectionProgress />
       <HeroSection />
       <LiveStatusBlock initialStatus={status} />

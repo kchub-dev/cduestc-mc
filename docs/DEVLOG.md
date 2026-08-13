@@ -4,6 +4,55 @@
 
 ---
 
+## 2026-08-13 — 上线 canonical 与全站 SEO（0.1.4）
+
+### 背景
+
+准备正式部署。站点 origin 不能写进仓库：内网主机名在线上不可作为公网 canonical。
+
+### 改动
+
+- `getSiteUrl()`：只读 `NEXT_PUBLIC_SITE_URL`；`next dev` 未设时用 `localhost:3083`；生产构建未设则抛错
+- Open Graph / Twitter、Organization + WebSite + FAQPage JSON-LD、`manifest.webmanifest`
+- `robots` 禁止 `/api/`；404 `noindex`
+
+### 决策 / 原因
+
+- 域名属于部署环境，以 `.env.example` 为模板，不在 `siteConfig` 写死
+- 构建时注入，保证 sitemap / OG 指向公网 origin
+
+### 验证
+
+- 未设 env 时 `next dev` 仍为 3083
+- 未设 env 时 `next build` 应失败并提示复制 `.env.example`
+
+### 后续
+
+- 上线构建环境填入公网 `NEXT_PUBLIC_SITE_URL` 后提交 sitemap
+
+---
+
+## 2026-08-13 — 开发端口 3083
+
+### 背景
+
+本地启动改到固定端口 3083，避免占用默认 3000。
+
+### 改动
+
+- `package.json`：`next dev --port 3083`、`next start --port 3083`
+- 本地 fallback canonical（无 `NEXT_PUBLIC_SITE_URL` 时）同步为 `http://localhost:3083`
+
+### 验证
+
+- 重启 `bun dev` / `npm run dev` 后监听 3083
+
+### 后续
+
+- 生产域名仍用 `NEXT_PUBLIC_SITE_URL`
+
+---
+
 ## 2026-08-13 — Hero 对齐与第二行从右描边
 
 ### 背景

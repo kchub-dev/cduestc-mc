@@ -2,6 +2,21 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循语义化思路（当前为预发布 `0.x`）。
 
+## [0.1.4] — 2026-08-13
+
+### Added
+
+- 生产 canonical 只读 `NEXT_PUBLIC_SITE_URL`（见 `.env.example`）；源码不写死域名；本地 `dev` 未设时用 `localhost:3083`
+- 全站 SEO：canonical / Open Graph / Twitter Card、`manifest`、FAQ 与组织 JSON-LD
+- `.env.example`：`NEXT_PUBLIC_SITE_URL` 模板；生产构建未设置会失败
+
+### Changed
+
+- 首页 title / description 面向检索改写；`robots.txt` 禁止索引 `/api/`
+- 404 设置 `noindex`
+
+---
+
 ## [0.1.3] — 2026-08-13
 
 ### Added
@@ -18,6 +33,7 @@
 - Hero CTA / 移动端菜单触控高度约 44px
 - FAQ 对齐《单程票》+ 官方整合包
 - Hero 第二行「金苹果社团」描边 / wipe 从右往左（字仍留在原位）
+- 本地 `dev` / `start` 端口改为 `3083`
 
 ### Fixed
 

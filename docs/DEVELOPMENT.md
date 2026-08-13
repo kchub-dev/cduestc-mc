@@ -8,7 +8,7 @@
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev      # http://localhost:3083
 npm run build
 npm run start
 npm run lint
@@ -35,17 +35,18 @@ npm run lint
 
 ```
 app/
-  layout.tsx              # 字体、SEO、Header/Footer 壳、favicon metadata
+  layout.tsx              # 字体、SEO metadata / JSON-LD、Header/Footer 壳
   page.tsx                # 首页（服务端拉状态 + SectionProgress）
   icon.png / favicon.ico  # App Router 站点图标（立方体标）
+  sitemap.ts / robots.ts / manifest.ts
   docs/page.tsx           # 帮助文档
   api/status/route.ts     # 状态 BFF 代理
   globals.css             # 主题 token + MC 风格工具类 + 首页藏滚动条
   not-found.tsx           # 404
 components/
-  bits/                   # 第三方/开源 UI 位（LineSidebar 等）
-  layout/                 # SiteHeader / SiteFooter / SectionProgress
   bits/                   # LineSidebar、StrokeText（React Bits）
+  layout/                 # SiteHeader / SiteFooter / SectionProgress
+  seo/                    # JSON-LD 脚本
   sections/               # 首页各区块
   status/                 # 状态徽章与格式化
   motion/reveal.tsx       # 滚动入场（尊重 reduced-motion）
@@ -56,6 +57,8 @@ content/                  # 纯数据/文案，尽量不碰组件改字
   promo/                  # 长文宣传底稿（卡片摘要仍写在 servers.ts）
 lib/
   uptime-kuma.ts          # 监控类型、拉取、合并 DTO
+  site-url.ts             # 站点 origin（NEXT_PUBLIC_SITE_URL；dev 默认 3083）
+  seo.ts                  # Open Graph、Twitter、JSON-LD
   utils.ts                # cn()
 legacy/                   # 旧版静态 HTML/CSS/JS 备份
 public/                   # 静态资源（logo、partners、验证文件等）
@@ -251,6 +254,8 @@ npx shadcn@latest add <component>
 | 章节侧栏 | `components/layout/section-progress.tsx` |
 | LineSidebar | `components/bits/LineSidebar.tsx` |
 | 章节数据 | `content/section-progress.ts` |
+| 站点 origin | `lib/site-url.ts`（`NEXT_PUBLIC_SITE_URL`，见 `.env.example`） |
+| SEO / JSON-LD | `lib/seo.ts`、`components/seo/json-ld.tsx` |
 
 ---
 
@@ -262,3 +267,24 @@ npx shadcn@latest add <component>
 - Motion：https://motion.dev
 - 设计规范：[DESIGN.md](./DESIGN.md)
 - 变更历史：[CHANGELOG.md](./CHANGELOG.md)
+
+---
+
+## 10. 部署与 SEO
+
+正式 origin **只**来自 `NEXT_PUBLIC_SITE_URL`，模板见仓库根目录 [`.env.example`](../.env.example)。源码不写死域名。
+
+| 场景 | 实际 origin |
+|------|-------------|
+| `next dev` 且未设 env | `http://localhost:3083` |
+| `next build` / `next start` | **必须**有 `NEXT_PUBLIC_SITE_URL`（构建时写入） |
+
+上线前：
+
+1. 在构建环境设置 `NEXT_PUBLIC_SITE_URL` 为**公网** canonical（复制 `.env.example` 为 `.env` 或在 CI 注入）
+2. `npm run build && npm run start`（监听 3083，前面用 Nginx/Caddy 反代 443）
+3. 用该公网域名下的 `/sitemap.xml` 提交百度站长 / Google Search Console
+4. 百度验证码已在 metadata（`baidu-site-verification`）与 `public/baidu_verify_*.html`
+
+SEO 覆盖：`metadataBase`、canonical、Open Graph / Twitter、FAQ JSON-LD、`robots.txt` 禁止 `/api/`、404 `noindex`。
+

@@ -1,7 +1,10 @@
+import { JsonLd } from "@/components/seo/json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/content/site";
-import type { Metadata } from "next";
+import { getOrganizationGraph, pageOpenGraph, pageTwitter } from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Outfit, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
@@ -23,19 +26,46 @@ const pressStart = Press_Start_2P({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0e1630",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ??
-      (process.env.VERCEL_PROJECT_PRODUCTION_URL
-        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-        : "http://localhost:3000"),
-  ),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: siteConfig.title,
-    template: `%s | ${siteConfig.name}`,
+    template: `%s | ${siteConfig.brand}`,
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
+  applicationName: `${siteConfig.brand} | ${siteConfig.name}`,
+  authors: [{ name: siteConfig.club, url: getSiteUrl() }],
+  creator: siteConfig.brand,
+  publisher: siteConfig.club,
+  category: "games",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -44,26 +74,25 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
   },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.brand,
+    statusBarStyle: "black-translucent",
+  },
   verification: {
     other: {
       "baidu-site-verification": siteConfig.baiduVerification,
     },
   },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.name,
-    locale: "zh_CN",
-    type: "website",
-    images: [
-      {
-        url: "/images/bc.png",
-        width: 1400,
-        height: 800,
-        alt: siteConfig.club,
-      },
-    ],
-  },
+    path: "/",
+  }),
+  twitter: pageTwitter({
+    title: siteConfig.title,
+    description: siteConfig.description,
+  }),
 };
 
 export default function RootLayout({
@@ -77,6 +106,7 @@ export default function RootLayout({
       className={`${outfit.variable} ${geistMono.variable} ${pressStart.variable} dark h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <JsonLd data={getOrganizationGraph()} />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

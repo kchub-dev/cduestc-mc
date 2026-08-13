@@ -1,13 +1,29 @@
 import { docsNav, docsSections, type DocBlock } from "@/content/docs";
 import { siteConfig } from "@/content/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getDocsJsonLd, pageOpenGraph, pageTwitter } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const docsDescription =
+  "电子科技大学成都学院 Minecraft 公益服帮助文档：准备工作、服务器规则、游戏指令与进阶说明。";
+
 export const metadata: Metadata = {
   title: "帮助文档",
-  description:
-    "电子科技大学成都学院（CDUESTC）Minecraft 公益服务器帮助文档，包含服务器规则、指令、玩法等详细说明",
+  description: docsDescription,
+  keywords: [...siteConfig.keywords, "帮助文档", "游戏指令", "服务器规则"],
+  alternates: { canonical: "/docs" },
+  openGraph: pageOpenGraph({
+    title: `帮助文档 | ${siteConfig.brand}`,
+    description: docsDescription,
+    path: "/docs",
+    type: "article",
+  }),
+  twitter: pageTwitter({
+    title: `帮助文档 | ${siteConfig.brand}`,
+    description: docsDescription,
+  }),
 };
 
 function DocBlocks({ blocks }: { blocks: DocBlock[] }) {
@@ -92,6 +108,7 @@ function DocBlocks({ blocks }: { blocks: DocBlock[] }) {
 export default function DocsPage() {
   return (
     <div className="pt-16">
+      <JsonLd data={getDocsJsonLd()} />
       <section className="relative overflow-hidden border-b border-border py-16">
         <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-transparent to-mc-grass/5" />
         <div className="container-site relative">
@@ -108,7 +125,10 @@ export default function DocsPage() {
       <section className="section-pad">
         <div className="container-site grid gap-10 lg:grid-cols-[240px_1fr]">
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <nav className="pixel-border rounded-md border border-border bg-card p-4">
+            <nav
+              className="pixel-border rounded-md border border-border bg-card p-4"
+              aria-label="文档目录"
+            >
               {docsNav.map((group) => (
                 <div key={group.title} className="mb-4 last:mb-0">
                   <p className="mb-2 px-2 text-xs font-semibold tracking-wide text-secondary">

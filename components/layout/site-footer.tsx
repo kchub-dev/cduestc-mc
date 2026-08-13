@@ -9,12 +9,12 @@ export function SiteFooter() {
         <a
           href={siteConfig.mclistsUrl}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="opacity-90 transition hover:opacity-100"
         >
           <Image
             src={siteConfig.mclistsBanner}
-            alt="mclists"
+            alt="McLists 服务器列表：电子科技大学成都学院 MC 公益服"
             width={300}
             height={50}
             unoptimized
@@ -23,8 +23,8 @@ export function SiteFooter() {
         </a>
 
         <p>
-          &copy; {new Date().getFullYear()} 电子科技大学成都学院 Minecraft
-          服务器 — 保留所有权利
+          &copy; {new Date().getFullYear()} {siteConfig.club}（{siteConfig.brand}）
+          — 保留所有权利
         </p>
 
         <p>
@@ -32,7 +32,7 @@ export function SiteFooter() {
           <a
             href={siteConfig.links.school}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-secondary hover:underline"
           >
             电子科技大学成都学院
@@ -41,7 +41,7 @@ export function SiteFooter() {
           <a
             href={siteConfig.links.muaDocs}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-secondary hover:underline"
           >
             MUA高校联盟
@@ -51,7 +51,7 @@ export function SiteFooter() {
         <Link
           href={siteConfig.beianUrl}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="font-medium text-foreground hover:text-secondary"
         >
           {siteConfig.beian}
