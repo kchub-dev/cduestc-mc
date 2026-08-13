@@ -31,6 +31,15 @@ function incidentPreview(md: string, max = 120): string {
   return `${plain.slice(0, max).trimEnd()}…`;
 }
 
+function isSafeHref(href: string): boolean {
+  try {
+    const url = new URL(href, "https://status.cduestc.fun");
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
   const nodes: ReactNode[] = [];
   const pattern =
@@ -52,7 +61,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
           {match[2]}
         </strong>,
       );
-    } else if (match[3] && match[4]) {
+    } else if (match[3] && match[4] && isSafeHref(match[4])) {
       nodes.push(
         <a
           key={`${keyPrefix}-a-${i}`}
@@ -64,6 +73,8 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
           {match[3]}
         </a>,
       );
+    } else if (match[3] && match[4]) {
+      nodes.push(match[3]);
     } else if (match[5]) {
       nodes.push(
         <a

@@ -1,3 +1,4 @@
+import { getMergedStatus } from "@/lib/uptime-kuma";
 import { SectionProgress } from "@/components/layout/section-progress";
 import { AboutSection } from "@/components/sections/about";
 import { FaqSection } from "@/components/sections/faq";
@@ -8,12 +9,13 @@ import {
   PartnersSection,
   TeamSection,
 } from "@/components/sections/team";
-import { getMergedStatus } from "@/lib/uptime-kuma";
+
+export const revalidate = 60;
 
 export default async function HomePage() {
   let status = null;
   try {
-    status = await getMergedStatus("fresh");
+    status = await getMergedStatus("cached");
   } catch {
     status = null;
   }

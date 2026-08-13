@@ -39,13 +39,32 @@
 
 .line-sidebar__item {
   position: relative;
+}
+
+.line-sidebar__hit {
+  appearance: none;
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
   cursor: pointer;
 }
 
-.line-sidebar__item::before {
+.line-sidebar__hit::before {
   content: "";
   position: absolute;
   inset: -6px -48px;
+}
+
+.line-sidebar__hit:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
 }
 
 .line-sidebar__label {
@@ -137,11 +156,11 @@
   width: 1px;
 }
 
-.line-sidebar--labels-hover .line-sidebar__item::before {
+.line-sidebar--labels-hover .line-sidebar__hit::before {
   inset: -8px -28px -8px -12px;
 }
 
-.line-sidebar--right.line-sidebar--labels-hover .line-sidebar__item::before {
+.line-sidebar--right.line-sidebar--labels-hover .line-sidebar__hit::before {
   inset: -8px -12px -8px -40px;
 }
 

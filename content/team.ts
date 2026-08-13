@@ -11,9 +11,9 @@ export const teamMembers = [
     name: "浅巷墨黎",
     role: "技术 / 运维",
     bio: "负责服务器的技术运营和开发",
-    avatar: "https://q1.qlogo.cn/g?b=qq&nk=2315823357&s=640",
+    avatar: "/images/team/dnyo666.png",
     tags: ["技术支持", "Web开发", "设计/策划"],
-    link: "https://qxml.ltd",
+    link: "https://me.shallow.ink",
   },
   {
     name: "mutant",
@@ -52,7 +52,7 @@ export const partners = [
     name: "网络管理委员会",
     description: "科成校级部门，负责维护管理学生校园网络",
     image: "/images/partners/naic.png",
-    href: "https://www.minebbs.com",
+    href: "https://www.cduestc.fun",
     tags: ["技术支持", "网络支持", "什邡校区人员支持"],
   },
 ] as const;

@@ -25,7 +25,7 @@ npm run lint
 | 框架 | Next.js 16 App Router | RSC + Route Handler |
 | UI | React 19 + Tailwind CSS 4 | CSS 变量主题 |
 | 组件 | shadcn/ui（base-nova / Radix Base UI） | 本地拷贝在 `components/ui` |
-| 动效 | motion（原 Framer Motion） | `whileInView` / Hero 入场 |
+| 动效 | motion + GSAP | `whileInView` / Hero StrokeText 描边字 |
 | 图标 | lucide-react | 替代旧站 Font Awesome CDN |
 | 状态 | Uptime Kuma REST | 公开 status-page / heartbeat |
 
@@ -45,6 +45,7 @@ app/
 components/
   bits/                   # 第三方/开源 UI 位（LineSidebar 等）
   layout/                 # SiteHeader / SiteFooter / SectionProgress
+  bits/                   # LineSidebar、StrokeText（React Bits）
   sections/               # 首页各区块
   status/                 # 状态徽章与格式化
   motion/reveal.tsx       # 滚动入场（尊重 reduced-motion）
@@ -66,7 +67,7 @@ docs/                     # 本开发文档
 ## 4. 架构与数据流
 
 ```
-┌─────────────┐   getMergedStatus("fresh")   ┌──────────────────────────┐
+┌─────────────┐   getMergedStatus("cached")  ┌──────────────────────────┐
 │  page.tsx   │ ───────────────────────────► │ status.cduestc.fun        │
 │  (RSC SSR)  │                              │ /api/status-page/...      │
 └──────┬──────┘                              │ /api/status-page/heartbeat│
@@ -105,7 +106,7 @@ StatusStrip   ServersSection
 
 ### 5.1 服务端数据与实时刷新
 
-- 首屏 SSR：`getMergedStatus("fresh")` 直连 Uptime Kuma（`cache: "no-store"`）
+- 首屏 SSR：`getMergedStatus("cached")`，60s ISR + 上游 **2.5s 超时**；失败则 `status=null`，不阻塞整页
 - 浏览器：`hooks/use-live-status.ts` 每 `siteConfig.statusPollIntervalMs`（默认 **60s**，对齐 Uptime Kuma 探测）请求 `GET /api/status`
 - 监控条同时展示 **Mod Server / Game Server / Web** 全部分组；服务器卡片与监控条共用同一份 live state（`LiveStatusBlock`）
 - `/api/status` 为 `force-dynamic`，上游始终 `fresh`，响应 `Cache-Control: no-store`

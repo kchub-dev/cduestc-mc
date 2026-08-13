@@ -90,7 +90,7 @@ export function SiteHeader() {
         <div className="lg:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
-              render={<Button variant="outline" size="icon-sm" />}
+              render={<Button variant="outline" size="icon" className="size-11" />}
             >
               <Menu className="size-4" />
               <span className="sr-only">打开菜单</span>

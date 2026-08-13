@@ -2,6 +2,31 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循语义化思路（当前为预发布 `0.x`）。
 
+## [0.1.3] — 2026-08-13
+
+### Added
+
+- Hero 主标题接入 React Bits `StrokeText`（GSAP 描边绘制 + wipe 填充）
+- `app/sitemap.ts` / `app/robots.ts`；根 layout 增加 `metadataBase` 与 Open Graph 图
+- 帮助文档卷首提示：《单程票》须用官方整合包，领地/锻造指令以群公告为准
+
+### Changed
+
+- 首页 SSR 改为 60s 缓存拉取监控，上游超时 2.5s，避免首屏卡死
+- 无心跳监控显示「未知」，不再误标离线
+- 首页仅在 `lg+` 隐藏原生滚动条（手机保留滚动条）
+- Hero CTA / 移动端菜单触控高度约 44px
+- FAQ 对齐《单程票》+ 官方整合包
+- Hero 第二行「金苹果社团」描边 / wipe 从右往左（字仍留在原位）
+
+### Fixed
+
+- 章节侧栏改为真正的 `button`，可键盘聚焦
+- 公告 Markdown 链接仅允许 http(s)
+- Hero 副文案 / CTA 与 StrokeText 主标题左缘对齐（去掉 SVG viewBox 左侧留白）
+
+---
+
 ## [0.1.2] — 2026-08-05
 
 ### Added

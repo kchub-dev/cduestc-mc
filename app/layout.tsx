@@ -24,6 +24,12 @@ const pressStart = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : "http://localhost:3000"),
+  ),
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
@@ -49,6 +55,14 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: "zh_CN",
     type: "website",
+    images: [
+      {
+        url: "/images/bc.png",
+        width: 1400,
+        height: 800,
+        alt: siteConfig.club,
+      },
+    ],
   },
 };
 

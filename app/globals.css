@@ -202,27 +202,30 @@
   }
 }
 
-/* Homepage: hide native scrollbar; LineSidebar is the section progress */
-html.home-section-progress {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
+/* Homepage desktop: hide native scrollbar; LineSidebar is the section progress.
+   Keep the scrollbar below lg — the sidebar is hidden on phones/tablets. */
+@media (min-width: 1024px) {
+  html.home-section-progress {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 
-html.home-section-progress::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  display: none;
-}
+  html.home-section-progress::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
 
-html.home-section-progress body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
+  html.home-section-progress body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 
-html.home-section-progress body::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  display: none;
+  html.home-section-progress body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

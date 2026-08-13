@@ -4,6 +4,58 @@
 
 ---
 
+## 2026-08-13 — Hero 对齐与第二行从右描边
+
+### 背景
+
+StrokeText 的 SVG viewBox 左侧按字号 10% 留白，副文案与 CTA 相对「电 / 金」偏左。第二行只需把原有描边方向改为从右开始，不要额外位移动画。
+
+### 改动
+
+- viewBox 左缘贴齐 `getBBox().x`，描边靠 `overflow: visible` 避免裁切
+- 第二行 `reverse`：stagger 从末字开始，wipe 自右向左；字仍留在原位
+
+### 验证
+
+- 副文案首字与主标题首字左缘重合
+- 「金苹果社团」在原位从右往左描边，无飞入
+
+### 后续
+
+- 帮助文档正文（领地/锻造）仍待按服拆分
+
+---
+
+## 2026-08-13 — Hero 描边字 + 审查项修复（0.1.3）
+
+### 背景
+
+首屏标题需要描边绘制特效（React Bits StrokeText / GSAP）。审查还发现：手机隐藏滚动条、SSR 同步等 Kuma、无心跳误标离线、文档与《单程票》错位。
+
+### 改动
+
+- `components/bits/StrokeText`：描边 + wipe；Hero 两行标题绘制完毕后渐显 CDUCRAFT 与副文案
+- 滚动条仅 `lg+` 隐藏；SSR `cached` + 2.5s 超时；缺心跳 →「未知」
+- `metadataBase` / OG / sitemap / robots；侧栏键盘 button；公告链接仅 http(s)
+- 文档卷首 warning + FAQ 对齐官方整合包
+
+### 决策 / 原因
+
+- 两行标题各自 `stroke-text--fit`，避免短行被 `width:100%` 放大
+- 首屏不必 `fresh`：客户端 1.5s 后会再拉 `/api/status`
+
+### 验证
+
+- 标题先描边再填充，随后 eyebrow / 副文案淡入
+- 手机可见滚动条；桌面仍无条、侧栏仍在
+
+### 后续
+
+- 帮助文档正文（领地/锻造）仍待按服拆分
+- 生产域名可用 `NEXT_PUBLIC_SITE_URL` 覆盖 sitemap / OG
+
+---
+
 ## 2026-08-05 — 章节侧栏进度 + 首屏 / 品牌标（0.1.2）
 
 ### 背景

@@ -6,7 +6,7 @@
 
 - Next.js (App Router) + React + TypeScript
 - Tailwind CSS + shadcn/ui
-- Motion
+- Motion + GSAP（Hero StrokeText）
 - Uptime Kuma 公开 API（服务/整合包运行状态）
 
 ## 开发

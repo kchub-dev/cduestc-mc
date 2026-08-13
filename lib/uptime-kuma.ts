@@ -84,6 +84,8 @@ export function statusLabel(code: MonitorStatusCode): string {
   return STATUS_LABELS[Number(code)] ?? "未知";
 }
 
+const KUMA_FETCH_TIMEOUT_MS = 2_500;
+
 type FetchMode = "cached" | "fresh";
 
 async function fetchJson<T>(
@@ -91,6 +93,7 @@ async function fetchJson<T>(
   mode: FetchMode = "cached",
 ): Promise<T> {
   const res = await fetch(`${siteConfig.statusApiBase}${path}`, {
+    signal: AbortSignal.timeout(KUMA_FETCH_TIMEOUT_MS),
     ...(mode === "fresh"
       ? { cache: "no-store" as const }
       : { next: { revalidate: 60, tags: ["uptime-kuma"] } }),
@@ -130,12 +133,13 @@ export async function getMergedStatus(
       const beats = heartbeat.heartbeatList[String(monitor.id)] ?? [];
       const latest = beats[beats.length - 1];
       const uptimeKey = `${monitor.id}_24`;
+      const code = latest?.status;
       const live: MonitorLiveStatus = {
         id: monitor.id,
         name: monitor.name,
         group: group.name,
-        status: latest?.status ?? 0,
-        statusLabel: statusLabel(latest?.status ?? 0),
+        status: code ?? 2,
+        statusLabel: latest ? statusLabel(code ?? 2) : "未知",
         ping: latest?.ping ?? null,
         uptime24h:
           typeof heartbeat.uptimeList[uptimeKey] === "number"

@@ -1,0 +1,33 @@
+.stroke-text {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.stroke-text--hover {
+  cursor: pointer;
+}
+
+.stroke-text--fit {
+  width: max-content;
+  max-width: 100%;
+}
+
+.stroke-text__svg {
+  display: block;
+  width: 100%;
+  height: var(--stroke-text-height, 160px);
+}
+
+.stroke-text--fit .stroke-text__svg {
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.stroke-text__stroke,
+.stroke-text__fill {
+  user-select: none;
+  font-family: var(--font-outfit), "PingFang SC", "Microsoft YaHei",
+    ui-sans-serif, system-ui, sans-serif;
+}

@@ -59,6 +59,13 @@ export const docsSections: DocSection[] = [
     id: "preparation",
     title: "准备工作",
     blocks: [
+      {
+        kind: "callout",
+        callout: {
+          type: "warning",
+          text: "当前核心玩法是原创射击副本《单程票》，请使用「科成MC公益服官方整合包」（Fabric 1.21.1）进入。下方部分指令（领地 /res、锻造、经济等）主要适用于香草纪元等生存向整合包，请以群公告为准。",
+        },
+      },
       { kind: "p", text: "欢迎来到科成MC服务器！在开始游戏前，您需要完成一些准备工作。" },
       { kind: "h3", text: "账号准备" },
       { kind: "p", text: "科成MC服务器需要正版账号或外置登录账号：" },
