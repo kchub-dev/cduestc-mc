@@ -38,6 +38,11 @@ export const siteConfig = {
   mclistsBanner: "https://tietu.mclists.cn/banner/purple/8117/1.jpg",
   mclistsUrl: "https://mclists.cn/server/8117.html",
   baiduVerification: "codeva-CpOURKdILY",
+  /** 51.la 应用统计（公开掩码，随页面下发） */
+  la51: {
+    id: "LHnFeAD3bWE5vgow",
+    ck: "LHnFeAD3bWE5vgow",
+  },
   links: {
     skin: "https://skin.cduestc.fun",
     reg: "https://reg.cduestc.fun",

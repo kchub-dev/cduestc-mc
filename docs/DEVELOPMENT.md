@@ -26,6 +26,7 @@ npm run lint
 | UI | React 19 + Tailwind CSS 4 | CSS 变量主题 |
 | 组件 | shadcn/ui（base-nova / Radix Base UI） | 本地拷贝在 `components/ui` |
 | 动效 | motion + GSAP | `whileInView` / Hero StrokeText 描边字 |
+| 统计 | 51.la JS SDK Pro | `next/script` afterInteractive + `LA.init` |
 | 图标 | lucide-react | 替代旧站 Font Awesome CDN |
 | 状态 | Uptime Kuma REST | 公开 status-page / heartbeat |
 
@@ -47,6 +48,7 @@ components/
   bits/                   # LineSidebar、StrokeText（React Bits）
   layout/                 # SiteHeader / SiteFooter / SectionProgress
   seo/                    # JSON-LD 脚本
+  analytics/              # 51.la 统计
   sections/               # 首页各区块
   status/                 # 状态徽章与格式化
   motion/reveal.tsx       # 滚动入场（尊重 reduced-motion）
@@ -256,6 +258,7 @@ npx shadcn@latest add <component>
 | 章节数据 | `content/section-progress.ts` |
 | 站点 origin | `lib/site-url.ts`（`NEXT_PUBLIC_SITE_URL`，见 `.env.example`） |
 | SEO / JSON-LD | `lib/seo.ts`、`components/seo/json-ld.tsx` |
+| 51.la 统计 | `components/analytics/la51.tsx`（id/ck 在 `content/site.ts`） |
 
 ---
 

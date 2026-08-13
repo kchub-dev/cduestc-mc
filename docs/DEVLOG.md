@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-08-13 — 51.la 应用统计
+
+### 背景
+
+接入 51.la JS SDK Pro 做全站访问与事件统计。
+
+### 改动
+
+- `components/analytics/la51.tsx`：`next/script` `afterInteractive`，`onLoad` 后 `LA.init`
+- 保留官方 `id` / `ck` / `autoTrack`；按 51.la V6 对 React SPA 的说明开启 `hashMode`
+
+### 决策 / 原因
+
+- 不用裸 `<script>`，避免阻塞与 init 早于 SDK
+- App Router 客户端跳转需要 SPA 模式，否则只记首屏
+
+### 验证
+
+- 网络面板出现 `js-sdk-pro.min.js`；控制台无 `LA is not defined`
+
+### 后续
+
+- 上线后在 51.la 后台确认 PV
+
+---
+
 ## 2026-08-13 — 上线 canonical 与全站 SEO（0.1.4）
 
 ### 背景

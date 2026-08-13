@@ -1,3 +1,4 @@
+import { La51Analytics } from "@/components/analytics/la51";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -107,6 +108,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <JsonLd data={getOrganizationGraph()} />
+        <La51Analytics />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

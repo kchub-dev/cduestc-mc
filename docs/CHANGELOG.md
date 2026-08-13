@@ -9,6 +9,7 @@
 - 生产 canonical 只读 `NEXT_PUBLIC_SITE_URL`（见 `.env.example`）；源码不写死域名；本地 `dev` 未设时用 `localhost:3083`
 - 全站 SEO：canonical / Open Graph / Twitter Card、`manifest`、FAQ 与组织 JSON-LD
 - `.env.example`：`NEXT_PUBLIC_SITE_URL` 模板；生产构建未设置会失败
+- 51.la 应用统计（`autoTrack` + SPA `hashMode`）
 
 ### Changed
 
