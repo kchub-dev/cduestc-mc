@@ -105,6 +105,7 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       className={`${outfit.variable} ${geistMono.variable} ${pressStart.variable} dark h-full antialiased`}
+      data-scroll-behavior="smooth"
     >
       <body className="flex min-h-full flex-col">
         <JsonLd data={getOrganizationGraph()} />

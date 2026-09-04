@@ -41,6 +41,7 @@ app/
   icon.png / favicon.ico  # App Router 站点图标（立方体标）
   sitemap.ts / robots.ts / manifest.ts
   docs/page.tsx           # 帮助文档
+  recruit/page.tsx        # 季节招新落地页
   api/status/route.ts     # 状态 BFF 代理
   globals.css             # 主题 token + MC 风格工具类 + 首页藏滚动条
   not-found.tsx           # 404
@@ -55,6 +56,7 @@ components/
   ui/                     # shadcn 组件
 content/                  # 纯数据/文案，尽量不碰组件改字
   site.ts / servers.ts / faq.ts / team.ts / docs.ts
+  recruit.ts              # 季节招新文案、双群、enabled 开关
   section-progress.ts     # 首页章节侧栏 id / 文案
   promo/                  # 长文宣传底稿（卡片摘要仍写在 servers.ts）
 lib/
@@ -175,7 +177,7 @@ npx shadcn@latest add <component>
 - `q1.qlogo.cn`（QQ 头像）
 - `tietu.mclists.cn`（列表站 banner）
 
-本地资源放 `public/images/`。导航图标用 `public/logo.png`（立方体）；横版字标仍在 `public/images/logo.png`。
+本地资源放 `public/images/`。导航图标用 `public/logo.png`（立方体）；横版字标仍在 `public/images/logo.png`。招新海报 / 二维码放 `public/images/recruit/`。
 
 ### 5.8 SEO 与合规
 
@@ -208,7 +210,17 @@ npx shadcn@latest add <component>
 
 ### 改站点外链 / QQ 群
 
-编辑 `content/site.ts`（`qqGroupUrl`、`links`、`statusPageUrl` 等）。
+- 游戏群、外链、监控：`content/site.ts`（`qqGroupUrl`、`links`、`statusPageUrl` 等）
+- 招新群：`content/recruit.ts`（`groupUrl`、`groupNumber`）
+
+### 改秋季招新
+
+1. 文案 / 席位 / FAQ / 宣讲：`content/recruit.ts`
+2. 海报放入 `public/images/recruit/`，写入 `posters: { src, alt }[]`（空数组则不渲染画廊）
+3. 从海报裁二维码为 `public/images/recruit/qr.png`，设置 `qrSrc`
+4. 招新结束：`enabled: false`（横幅 / 标题 / Dialog / 条带 / 导航一并隐藏，`/recruit` 显示结束态）
+5. 招新条带不进 `section-progress.ts`
+6. 首页加显文案：`content/recruit.ts` 的 `home`（横幅、Hero 标题、Dialog）
 
 ### 改 FAQ / 团队 / 合作伙伴
 
@@ -259,6 +271,11 @@ npx shadcn@latest add <component>
 | 站点 origin | `lib/site-url.ts`（`NEXT_PUBLIC_SITE_URL`，见 `.env.example`） |
 | SEO / JSON-LD | `lib/seo.ts`、`components/seo/json-ld.tsx` |
 | 51.la 统计 | `components/analytics/la51.tsx`（id/ck 在 `content/site.ts`） |
+| 招新开关 / 文案 | `content/recruit.ts` |
+| 招新落地页 | `app/recruit/page.tsx`、`components/sections/recruit-landing.tsx` |
+| 首页招新条 | `components/sections/recruit-strip.tsx` |
+| 首页招新横幅 | `components/sections/recruit-home-banner.tsx` |
+| 招新通知 Dialog | `components/sections/recruit-notice-dialog.tsx` |
 
 ---
 

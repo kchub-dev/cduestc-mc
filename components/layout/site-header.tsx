@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { recruitConfig } from "@/content/recruit";
 import { externalSites, navItems, siteConfig } from "@/content/site";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu } from "lucide-react";
@@ -24,6 +25,9 @@ import { useEffect, useState } from "react";
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const items = navItems.filter(
+    (item) => item.href !== recruitConfig.navHref || recruitConfig.enabled,
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -60,11 +64,16 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="主导航">
-          {navItems.map((item) => (
+          {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-accent hover:text-foreground"
+              className={cn(
+                "rounded-md px-3 py-2 text-sm transition hover:bg-accent hover:text-foreground",
+                item.href === recruitConfig.navHref
+                  ? "text-mc-grass hover:text-mc-grass"
+                  : "text-muted-foreground",
+              )}
             >
               {item.label}
             </Link>
@@ -100,12 +109,17 @@ export function SiteHeader() {
                 <SheetTitle>{siteConfig.brand}</SheetTitle>
               </SheetHeader>
               <div className="mt-4 flex flex-col gap-1">
-                {navItems.map((item) => (
+                {items.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="rounded-md px-3 py-2.5 text-sm text-foreground hover:bg-accent"
+                    className={cn(
+                      "rounded-md px-3 py-2.5 text-sm hover:bg-accent",
+                      item.href === recruitConfig.navHref
+                        ? "text-mc-grass"
+                        : "text-foreground",
+                    )}
                   >
                     {item.label}
                   </Link>

@@ -2,6 +2,30 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循语义化思路（当前为预发布 `0.x`）。
 
+## [0.1.5] — 2026-09-04
+
+### Added
+
+- **2026 秋季招新**：独立落地页 `/recruit`（席位、社团玩法摘要、入群、招新 FAQ）
+- 首页 Hero 下方招新条带；顶栏「2026招新」（草绿强调）
+- 招新文案与开关：`content/recruit.ts`（`enabled` 控制条带 / 导航；关闭后 `/recruit` 为结束态）
+- 招新群：金苹果社 | 2026招新群（`938184510` / `https://qm.qq.com/q/ZUU8bivzqy`）
+- 招新页 SEO：canonical / Open Graph / FAQ JSON-LD；`sitemap` 收录 `/recruit`
+- 海报与二维码槽位：`public/images/recruit/`（有资源再写入 `posters` / `qrSrc`）
+- 首页招新加显：Hero 顶草绿横幅、「2026招新中」标题、招新描边按钮、首次访问 Dialog（localStorage）
+
+### Changed
+
+- 根 `html` 增加 `data-scroll-behavior="smooth"`，避免站内跳转时 Next 提示与 `scroll-smooth` 冲突
+- 招新通知 Dialog 的「2026 AUTUMN / 2026招新中」改用前景白字
+
+### Notes
+
+- 官网「加入群聊」仍指向游戏群 `957464722`
+- 宣讲时空、海报、二维码等图到后再补进 `content/recruit.ts`
+
+---
+
 ## [0.1.4] — 2026-08-13
 
 ### Added

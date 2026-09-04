@@ -34,7 +34,7 @@
 4. 一组 CTA（主：加群；次：查看服务器；高度约 44px）
 5. 一张全宽氛围底图
 
-不放：统计条、赛程、地址块、促销贴纸、浮动 badge。
+不放：统计条、赛程、地址块、促销贴纸、浮动 badge。季节招新（`enabled`）可在首屏加：顶栏下草绿横幅、「2026招新中」标题、招新描边按钮；游戏群仍是主 CTA。
 
 ### 2.3 区块原则
 
@@ -43,6 +43,7 @@
 | Section | 目的 |
 |---------|------|
 | Hero（`#hero`） | 品牌与入群；首屏占满一屏 `h-dvh` |
+| RecruitStrip | 季节招新入口（`content/recruit.ts` 的 `enabled` 控制） |
 | StatusStrip（`#status`） | 游戏服 + Web 实时健康一览 |
 | Servers（`#servers`） | 游玩入口 + 实时状态 + 公告摘要/Modal |
 | Features（`#services`） | 《单程票》玩法特色（枪械 / 双模式 / 小队 / 模组等） |
@@ -51,6 +52,7 @@
 | Team / Partners | 人与合作 |
 | Footer | 备案与友情链接 |
 | SectionProgress（侧栏） | 桌面章节进度 / 锚点跳转（非整页翻页） |
+| `/recruit` | 金苹果社团季节招新落地页（与游戏群分开） |
 
 ---
 
@@ -171,7 +173,16 @@ box-shadow:
 - Modal：标题 = incident.title；正文可滚动；支持加粗与链接；页脚主操作「关闭」（草绿）、次操作「打开监控页」
 - 遮罩：半透明黑 + 轻 blur，内容区使用 `.pixel-border` 与卡片面色
 
-### 6.7 章节侧栏进度
+### 6.7 季节招新
+
+- **首页加显**：Hero 顶栏下草绿横幅 + 主标题下「2026招新中」+ 招新描边按钮；首次访问 Dialog（localStorage 只出一次）；Hero 下方草绿 RecruitStrip（大标题「2026招新中」）。均不进章节侧栏
+- **落地页 `/recruit`**：像素小标签 + Outfit 大标题（不用 StrokeText）；席位卡、短「我们在做什么」、入群块、招新 FAQ
+- **双群**：招新群（报名）与游戏群（进服）分开；Hero / 服务器卡「加入群聊」始终指向游戏群
+- **海报 / 二维码**：`posters` 为空则不渲染画廊；`qrSrc` 有值才显示扫码框
+- **结束态**：`enabled: false` 隐藏条带与导航「2026招新」；`/recruit` 改为短结束页
+- 顶栏招新项用草绿字，与常驻导航区分
+
+### 6.8 章节侧栏进度
 
 - 位置：桌面 `lg+` 固定于视口右侧垂直居中；小屏隐藏
 - 默认：仅显示刻度线；悬停侧栏时展开章节文案（`labelsOnHover`）
@@ -189,6 +200,7 @@ box-shadow:
 | `/logo.png` | 导航立方体标 + favicon / apple icon |
 | `/images/logo.png` | CDUCRAFT 横版字标（备用，勿再压成方块导航标） |
 | `/images/partners/*` | 合作伙伴 Logo |
+| `/images/recruit/*` | 招新海报与裁切后的群二维码 |
 | QQ / mclists 远程图 | 头像与列表站 banner（`next.config` 白名单） |
 
 规则：
@@ -256,6 +268,11 @@ box-shadow:
 | 章节侧栏 | `components/layout/section-progress.tsx` |
 | LineSidebar | `components/bits/LineSidebar.tsx` |
 | 文档页版式 | `app/docs/page.tsx` |
+| 招新条带 | `components/sections/recruit-strip.tsx` |
+| 首页招新横幅 | `components/sections/recruit-home-banner.tsx` |
+| 招新通知 Dialog | `components/sections/recruit-notice-dialog.tsx` |
+| 招新落地页 | `app/recruit/page.tsx`、`components/sections/recruit-landing.tsx` |
+| 招新文案 / 开关 | `content/recruit.ts` |
 
 改色优先改 CSS 变量，避免在组件里散落硬编码色值（Hero 遮罩渐变可保留与 `--background` 同色的局部值）。
 
@@ -276,3 +293,5 @@ box-shadow:
 | 2026-08-05 | 团队改 shadcn Card 2×2 横版网格（弃用单卡 Swiper） |
 | 2026-08-13 | Hero StrokeText 描边字；小屏保留滚动条；CTA 触控高度 |
 | 2026-08-13 | Hero 副文案对齐主标题左缘；第二行描边从右往左 |
+| 2026-09-04 | 2026 秋季招新：首页条带 + `/recruit` 落地页；招新群与游戏群分流 |
+| 2026-09-04 | 首页招新加显：草绿横幅、「2026招新中」标题、首次 Dialog |

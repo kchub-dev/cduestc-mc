@@ -6,6 +6,9 @@ import { FaqSection } from "@/components/sections/faq";
 import { FeaturesSection } from "@/components/sections/features";
 import { HeroSection } from "@/components/sections/hero";
 import { LiveStatusBlock } from "@/components/sections/live-status-block";
+import { RecruitNoticeDialog } from "@/components/sections/recruit-notice-dialog";
+import { RecruitStrip } from "@/components/sections/recruit-strip";
+import { recruitConfig } from "@/content/recruit";
 import {
   PartnersSection,
   TeamSection,
@@ -31,7 +34,9 @@ export default async function HomePage() {
     <>
       <JsonLd data={getHomeJsonLd()} />
       <SectionProgress />
+      {recruitConfig.enabled ? <RecruitNoticeDialog /> : null}
       <HeroSection />
+      {recruitConfig.enabled ? <RecruitStrip /> : null}
       <LiveStatusBlock initialStatus={status} />
       <FeaturesSection />
       <AboutSection />

@@ -3,7 +3,9 @@
 import StrokeText, {
   getStrokeTextDuration,
 } from "@/components/bits/StrokeText";
+import { RecruitHomeBanner } from "@/components/sections/recruit-home-banner";
 import { Button } from "@/components/ui/button";
+import { recruitConfig } from "@/content/recruit";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
@@ -74,7 +76,14 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e1630] via-transparent to-[#0e1630]/50" />
       </div>
 
-      <div className="container-site relative z-10 flex h-full flex-col justify-center pt-16 pb-10">
+      {recruitConfig.enabled ? <RecruitHomeBanner /> : null}
+
+      <div
+        className={cn(
+          "container-site relative z-10 flex h-full flex-col justify-center pb-10",
+          recruitConfig.enabled ? "pt-[6.5rem]" : "pt-16",
+        )}
+      >
         <div className="max-w-3xl">
           <motion.p
             initial={false}
@@ -115,6 +124,24 @@ export function HeroSection() {
             />
           </h1>
 
+          {recruitConfig.enabled ? (
+            <motion.p
+              initial={false}
+              animate={{ opacity: showRest ? 1 : 0, y: showRest ? 0 : 8 }}
+              transition={{
+                duration: 0.55,
+                delay: showRest ? 0.04 : 0,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className={cn(
+                "mt-4 text-2xl font-bold tracking-tight text-mc-grass sm:text-3xl md:text-4xl",
+                !showRest && "invisible",
+              )}
+            >
+              {recruitConfig.home.kicker}
+            </motion.p>
+          ) : null}
+
           <motion.p
             initial={false}
             animate={{ opacity: showRest ? 1 : 0, y: showRest ? 0 : 10 }}
@@ -149,6 +176,16 @@ export function HeroSection() {
             >
               加入群聊
             </Button>
+            {recruitConfig.enabled ? (
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-11 min-h-11 border-mc-grass/50 px-4 text-base text-mc-grass hover:bg-mc-grass/10 hover:text-mc-grass"
+                render={<Link href={recruitConfig.navHref} />}
+              >
+                {recruitConfig.home.heroCta}
+              </Button>
+            ) : null}
             <Button
               size="lg"
               variant="outline"

@@ -1,4 +1,5 @@
 import { faqs } from "@/content/faq";
+import { recruitConfig } from "@/content/recruit";
 import { servers } from "@/content/servers";
 import { siteConfig } from "@/content/site";
 import { getSiteUrl, toAbsoluteUrl } from "@/lib/site-url";
@@ -143,5 +144,37 @@ export function getDocsJsonLd() {
     inLanguage: "zh-CN",
     isPartOf: { "@id": `${getSiteUrl()}/#website` },
     about: { "@id": `${getSiteUrl()}/#organization` },
+  };
+}
+
+export function getRecruitJsonLd() {
+  const url = toAbsoluteUrl("/recruit");
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: recruitConfig.seo.title,
+        description: recruitConfig.seo.description,
+        inLanguage: "zh-CN",
+        isPartOf: { "@id": `${getSiteUrl()}/#website` },
+        about: { "@id": `${getSiteUrl()}/#organization` },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": `${url}#webpage` },
+        mainEntity: recruitConfig.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer.join(" "),
+          },
+        })),
+      },
+    ],
   };
 }

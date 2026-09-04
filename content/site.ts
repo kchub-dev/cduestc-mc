@@ -55,6 +55,7 @@ export const siteConfig = {
 
 export const navItems = [
   { label: "首页", href: "/" },
+  { label: "2026招新", href: "/recruit" },
   { label: "监控", href: "/#status" },
   { label: "服务器", href: "/#servers" },
   { label: "关于我们", href: "/#about" },
