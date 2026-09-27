@@ -218,7 +218,7 @@ npx shadcn@latest add <component>
 1. 文案 / 席位 / FAQ / 宣讲：`content/recruit.ts`
 2. 海报放入 `public/images/recruit/`，写入 `posters: { src, alt }[]`（空数组则不渲染画廊）
 3. 从海报裁二维码为 `public/images/recruit/qr.png`，设置 `qrSrc`
-4. 招新结束：`enabled: false`（横幅 / 标题 / Dialog / 条带 / 导航一并隐藏，`/recruit` 显示结束态）
+4. 招新结束：`enabled: false`（横幅 / 标题 / Dialog / 条带 / 导航一并隐藏，`/recruit` 显示结束态并 `noindex`，从 sitemap 移除）
 5. 招新条带不进 `section-progress.ts`
 6. 首页加显文案：`content/recruit.ts` 的 `home`（横幅、Hero 标题、Dialog）
 

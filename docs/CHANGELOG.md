@@ -2,6 +2,14 @@
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循语义化思路（当前为预发布 `0.x`）。
 
+## [Unreleased]
+
+### Changed
+
+- 2026 秋季招新结束：关闭活动开关，首页横幅、标题、弹窗、条带及导航入口恢复常态；`/recruit` 保留结束页并设置 `noindex`，从 sitemap 移除，同时停用招新 FAQ JSON-LD。
+
+---
+
 ## [0.1.5] — 2026-09-04
 
 ### Added

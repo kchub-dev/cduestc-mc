@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { recruitConfig } from "@/content/recruit";
 import { getSiteUrl } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -17,11 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
-    {
-      url: `${base}/recruit`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+    ...(recruitConfig.enabled
+      ? [{
+          url: `${base}/recruit`,
+          lastModified: now,
+          changeFrequency: "weekly" as const,
+          priority: 0.9,
+        }]
+      : []),
   ];
 }

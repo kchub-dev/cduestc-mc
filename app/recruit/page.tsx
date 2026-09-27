@@ -7,25 +7,32 @@ import { getRecruitJsonLd, pageOpenGraph, pageTwitter } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: recruitConfig.seo.title,
-  description: recruitConfig.seo.description,
+  title: recruitConfig.enabled ? recruitConfig.seo.title : recruitConfig.ended.title,
+  description: recruitConfig.enabled
+    ? recruitConfig.seo.description
+    : recruitConfig.ended.subtitle,
+  robots: recruitConfig.enabled ? undefined : { index: false, follow: true },
   keywords: [...siteConfig.keywords, "招新", "秋季招新", "金苹果社团"],
   alternates: { canonical: "/recruit" },
   openGraph: pageOpenGraph({
-    title: `${recruitConfig.seo.title} | ${siteConfig.brand}`,
-    description: recruitConfig.seo.description,
+    title: `${recruitConfig.enabled ? recruitConfig.seo.title : recruitConfig.ended.title} | ${siteConfig.brand}`,
+    description: recruitConfig.enabled
+      ? recruitConfig.seo.description
+      : recruitConfig.ended.subtitle,
     path: "/recruit",
   }),
   twitter: pageTwitter({
-    title: `${recruitConfig.seo.title} | ${siteConfig.brand}`,
-    description: recruitConfig.seo.description,
+    title: `${recruitConfig.enabled ? recruitConfig.seo.title : recruitConfig.ended.title} | ${siteConfig.brand}`,
+    description: recruitConfig.enabled
+      ? recruitConfig.seo.description
+      : recruitConfig.ended.subtitle,
   }),
 };
 
 export default function RecruitPage() {
   return (
     <>
-      <JsonLd data={getRecruitJsonLd()} />
+      {recruitConfig.enabled ? <JsonLd data={getRecruitJsonLd()} /> : null}
       {recruitConfig.enabled ? <RecruitLanding /> : <RecruitEnded />}
     </>
   );

@@ -21,7 +21,7 @@ export type RecruitFaq = {
  * and nav entry; `/recruit` then shows the ended state.
  */
 export const recruitConfig = {
-  enabled: true,
+  enabled: false,
   navLabel: "2026招新",
   navHref: "/recruit",
   season: "2026 秋季招新",
